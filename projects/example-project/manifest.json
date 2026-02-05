@@ -1,0 +1,9 @@
+{
+  "title": "Example Project",
+  "description": "A demo project showcasing the template system",
+  "logo": "logo.png",
+  "badge": "DEMO",
+  "color": "#fbac2f",
+  "versions": ["v1", "v2", "v3"],
+  "latest": "v3"
+}

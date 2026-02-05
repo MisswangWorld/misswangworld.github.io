@@ -291,7 +291,18 @@
       color: var(--gray);
       font-size: 14px;
     }
-    
+
+    .view-all-link {
+      color: var(--gray);
+      font-size: 14px;
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+
+    .view-all-link:hover {
+      color: var(--primary);
+    }
+
     .projects-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
@@ -303,6 +314,9 @@
       border-radius: 12px;
       overflow: hidden;
       transition: transform 0.3s ease, box-shadow 0.3s ease;
+      text-decoration: none;
+      color: inherit;
+      display: block;
     }
     
     .project-card:hover {
@@ -333,7 +347,14 @@
       color: rgba(0,0,0,0.15);
       font-weight: 700;
     }
-    
+
+    .project-logo {
+      width: 80px;
+      height: 80px;
+      object-fit: contain;
+      border-radius: 12px;
+    }
+
     .project-badge {
       position: absolute;
       bottom: 14px;
@@ -639,39 +660,10 @@
     <div class="projects-inner">
       <div class="projects-header">
         <h2>Featured <span>Projects</span></h2>
-        <p>More coming soon</p>
+        <a href="projects.html" class="view-all-link">View all projects →</a>
       </div>
-      <div class="projects-grid">
-        <div class="project-card">
-          <div class="project-image">
-            <span class="project-number">01</span>
-            <span class="project-badge">COMING SOON</span>
-          </div>
-          <div class="project-info">
-            <h3 class="project-title">Project Title</h3>
-            <p class="project-desc">Brief description</p>
-          </div>
-        </div>
-        <div class="project-card">
-          <div class="project-image">
-            <span class="project-number">02</span>
-            <span class="project-badge">COMING SOON</span>
-          </div>
-          <div class="project-info">
-            <h3 class="project-title">Project Title</h3>
-            <p class="project-desc">Brief description</p>
-          </div>
-        </div>
-        <div class="project-card">
-          <div class="project-image">
-            <span class="project-number">03</span>
-            <span class="project-badge">COMING SOON</span>
-          </div>
-          <div class="project-info">
-            <h3 class="project-title">Project Title</h3>
-            <p class="project-desc">Brief description</p>
-          </div>
-        </div>
+      <div class="projects-grid" id="featuredProjectsGrid">
+        <!-- Projects loaded dynamically -->
       </div>
     </div>
   </section>
@@ -703,6 +695,80 @@
         document.querySelector('.nav-links').classList.remove('active');
       });
     });
+
+    // Color palette for project cards
+    const colorPalette = [
+      '#fbac2f', // primary
+      '#e99a1e', // primary-dark
+      '#ffc04d', // primary-light
+    ];
+
+    // Load a single project's manifest
+    async function loadProjectManifest(projectId) {
+      try {
+        const response = await fetch(`projects/${projectId}/manifest.json`);
+        if (!response.ok) return null;
+        const data = await response.json();
+        return { id: projectId, ...data };
+      } catch {
+        return null;
+      }
+    }
+
+    // Load featured projects
+    async function loadFeaturedProjects() {
+      const grid = document.getElementById('featuredProjectsGrid');
+      if (!grid) return;
+
+      try {
+        // Load global manifest to get featured list
+        const response = await fetch('projects/manifest.json');
+        if (!response.ok) throw new Error('Failed to load');
+        const data = await response.json();
+        const featuredIds = data.featured || [];
+
+        // Load each project's manifest
+        const projects = await Promise.all(
+          featuredIds.map(id => loadProjectManifest(id))
+        );
+        const validProjects = projects.filter(p => p !== null);
+
+        if (validProjects.length === 0) {
+          grid.innerHTML = '<p style="color: var(--gray); grid-column: 1/-1; text-align: center;">Projects coming soon</p>';
+          return;
+        }
+
+        // Render project cards
+        grid.innerHTML = validProjects.map((project, index) => {
+          const color = project.color || colorPalette[index % colorPalette.length];
+          const number = String(index + 1).padStart(2, '0');
+          const logoPath = project.logo ? `projects/${project.id}/${project.logo}` : null;
+
+          return `
+            <a href="project.html?name=${project.id}" class="project-card">
+              <div class="project-image" style="background: ${color};">
+                ${logoPath
+                  ? `<img src="${logoPath}" alt="${project.title}" class="project-logo" onerror="this.style.display='none';this.nextElementSibling.style.display='block';">
+                     <span class="project-number" style="display:none;">${number}</span>`
+                  : `<span class="project-number">${number}</span>`
+                }
+                ${project.badge ? `<span class="project-badge">${project.badge}</span>` : ''}
+              </div>
+              <div class="project-info">
+                <h3 class="project-title">${project.title}</h3>
+                <p class="project-desc">${project.description}</p>
+              </div>
+            </a>
+          `;
+        }).join('');
+
+      } catch (error) {
+        grid.innerHTML = '<p style="color: var(--gray); grid-column: 1/-1; text-align: center;">Projects coming soon</p>';
+      }
+    }
+
+    // Initialize featured projects
+    loadFeaturedProjects();
   </script>
 </body>
 </html>

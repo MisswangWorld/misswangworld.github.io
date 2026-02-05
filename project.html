@@ -1,0 +1,769 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Project Details - Janis Wang">
+  <title>Project | Janis Wang</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --primary: #fbac2f;
+      --primary-dark: #e99a1e;
+      --primary-light: #ffc04d;
+      --accent: #2E9AD0;
+      --black: #1a1a1a;
+      --gray-dark: #666;
+      --gray: #999;
+      --gray-light: #f5f5f2;
+      --white: #FAF9F6;
+      --sidebar-width: 200px;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: var(--white);
+      color: var(--black);
+      line-height: 1.6;
+    }
+
+    /* Navigation */
+    .nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 24px 48px;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      background: rgba(250, 249, 246, 0.95);
+      backdrop-filter: blur(10px);
+      z-index: 1000;
+    }
+
+    .nav-logo {
+      font-family: 'Syne', sans-serif;
+      font-size: 18px;
+      font-weight: 600;
+      color: var(--black);
+      text-decoration: none;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 32px;
+      align-items: center;
+    }
+
+    .nav-link {
+      font-family: 'Inter', sans-serif;
+      font-size: 14px;
+      color: var(--gray-dark);
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+
+    .nav-link:hover {
+      color: var(--primary);
+    }
+
+    .nav-link.btn {
+      background: var(--black);
+      color: white;
+      padding: 10px 24px;
+      border-radius: 6px;
+    }
+
+    .nav-link.btn:hover {
+      background: var(--primary);
+      color: var(--black);
+    }
+
+    /* Mobile menu toggle */
+    .nav-toggle {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      padding: 5px;
+    }
+
+    .nav-toggle span {
+      width: 24px;
+      height: 2px;
+      background: var(--black);
+      transition: 0.3s;
+    }
+
+    /* Main Layout */
+    .main-container {
+      display: flex;
+      min-height: 100vh;
+      padding-top: 80px;
+    }
+
+    /* Sidebar */
+    .sidebar {
+      width: var(--sidebar-width);
+      background: var(--gray-light);
+      border-right: 1px solid #e5e5e5;
+      padding: 32px 24px;
+      position: fixed;
+      top: 80px;
+      left: 0;
+      bottom: 0;
+      overflow-y: auto;
+      transition: transform 0.3s ease;
+      z-index: 100;
+    }
+
+    .sidebar-header {
+      margin-bottom: 24px;
+    }
+
+    .sidebar-title {
+      font-family: 'Syne', sans-serif;
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--gray);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 8px;
+    }
+
+    .project-name {
+      font-family: 'Syne', sans-serif;
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--black);
+    }
+
+    .version-list {
+      list-style: none;
+    }
+
+    .version-item {
+      margin-bottom: 8px;
+    }
+
+    .version-btn {
+      display: block;
+      width: 100%;
+      padding: 12px 16px;
+      background: transparent;
+      border: none;
+      border-radius: 8px;
+      font-family: 'Syne', sans-serif;
+      font-size: 15px;
+      font-weight: 500;
+      color: var(--gray-dark);
+      cursor: pointer;
+      text-align: left;
+      transition: all 0.2s ease;
+    }
+
+    .version-btn:hover {
+      background: rgba(251, 172, 47, 0.1);
+      color: var(--black);
+    }
+
+    .version-btn.active {
+      background: var(--primary);
+      color: var(--black);
+      font-weight: 600;
+    }
+
+    .version-btn .version-label {
+      display: block;
+    }
+
+    .version-btn .version-tag {
+      font-size: 10px;
+      color: var(--accent);
+      font-weight: 400;
+      margin-top: 2px;
+    }
+
+    .version-btn.active .version-tag {
+      color: var(--black);
+      opacity: 0.7;
+    }
+
+    /* Sidebar toggle button */
+    .sidebar-toggle {
+      display: none;
+      position: fixed;
+      top: 100px;
+      left: 16px;
+      z-index: 101;
+      background: var(--primary);
+      border: none;
+      border-radius: 8px;
+      padding: 10px 14px;
+      cursor: pointer;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+    }
+
+    .sidebar-toggle svg {
+      width: 20px;
+      height: 20px;
+      fill: var(--black);
+    }
+
+    /* Content Area */
+    .content {
+      flex: 1;
+      margin-left: var(--sidebar-width);
+      padding: 48px;
+      max-width: 900px;
+    }
+
+    .content-inner {
+      max-width: 800px;
+    }
+
+    /* Back link */
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--gray);
+      text-decoration: none;
+      font-size: 14px;
+      margin-bottom: 32px;
+      transition: color 0.3s;
+    }
+
+    .back-link:hover {
+      color: var(--primary);
+    }
+
+    .back-link svg {
+      width: 16px;
+      height: 16px;
+    }
+
+    /* Markdown Content Styles */
+    .markdown-content h1 {
+      font-family: 'Syne', sans-serif;
+      font-size: 36px;
+      font-weight: 700;
+      color: var(--black);
+      margin-bottom: 16px;
+      line-height: 1.2;
+    }
+
+    .markdown-content h2 {
+      font-family: 'Syne', sans-serif;
+      font-size: 24px;
+      font-weight: 600;
+      color: var(--black);
+      margin-top: 40px;
+      margin-bottom: 16px;
+      padding-bottom: 8px;
+      border-bottom: 2px solid var(--primary);
+    }
+
+    .markdown-content h3 {
+      font-family: 'Syne', sans-serif;
+      font-size: 18px;
+      font-weight: 600;
+      color: var(--black);
+      margin-top: 32px;
+      margin-bottom: 12px;
+    }
+
+    .markdown-content p {
+      font-size: 15px;
+      color: var(--gray-dark);
+      margin-bottom: 16px;
+      line-height: 1.8;
+    }
+
+    .markdown-content ul,
+    .markdown-content ol {
+      margin-bottom: 16px;
+      padding-left: 24px;
+    }
+
+    .markdown-content li {
+      font-size: 15px;
+      color: var(--gray-dark);
+      margin-bottom: 8px;
+      line-height: 1.7;
+    }
+
+    .markdown-content a {
+      color: var(--accent);
+      text-decoration: none;
+      border-bottom: 1px solid transparent;
+      transition: border-color 0.3s;
+    }
+
+    .markdown-content a:hover {
+      border-bottom-color: var(--accent);
+    }
+
+    .markdown-content code {
+      background: var(--gray-light);
+      padding: 2px 8px;
+      border-radius: 4px;
+      font-size: 14px;
+      font-family: 'SF Mono', Monaco, Consolas, monospace;
+    }
+
+    .markdown-content pre {
+      background: var(--black);
+      color: var(--white);
+      padding: 20px;
+      border-radius: 8px;
+      overflow-x: auto;
+      margin-bottom: 20px;
+    }
+
+    .markdown-content pre code {
+      background: transparent;
+      padding: 0;
+      color: inherit;
+    }
+
+    .markdown-content blockquote {
+      border-left: 4px solid var(--primary);
+      padding-left: 20px;
+      margin: 20px 0;
+      color: var(--gray-dark);
+      font-style: italic;
+    }
+
+    .markdown-content img {
+      max-width: 100%;
+      height: auto;
+      border-radius: 8px;
+      margin: 20px 0;
+    }
+
+    .markdown-content hr {
+      border: none;
+      border-top: 1px solid #e5e5e5;
+      margin: 32px 0;
+    }
+
+    .markdown-content table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 20px 0;
+    }
+
+    .markdown-content th,
+    .markdown-content td {
+      padding: 12px;
+      text-align: left;
+      border-bottom: 1px solid #e5e5e5;
+    }
+
+    .markdown-content th {
+      font-weight: 600;
+      background: var(--gray-light);
+    }
+
+    /* Loading & Error States */
+    .loading {
+      text-align: center;
+      padding: 60px 20px;
+      color: var(--gray);
+    }
+
+    .loading-spinner {
+      width: 40px;
+      height: 40px;
+      border: 3px solid var(--gray-light);
+      border-top-color: var(--primary);
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+      margin: 0 auto 16px;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    .error {
+      text-align: center;
+      padding: 60px 20px;
+      color: var(--gray-dark);
+    }
+
+    .error h2 {
+      font-family: 'Syne', sans-serif;
+      color: var(--black);
+      margin-bottom: 12px;
+    }
+
+    /* Footer */
+    .footer {
+      margin-left: var(--sidebar-width);
+      padding: 24px 48px;
+      background: #111;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      color: #444;
+      font-size: 12px;
+    }
+
+    .footer a {
+      color: #444;
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+
+    .footer a:hover {
+      color: var(--primary);
+    }
+
+    /* Responsive */
+    @media (max-width: 900px) {
+      .sidebar {
+        transform: translateX(-100%);
+      }
+
+      .sidebar.open {
+        transform: translateX(0);
+      }
+
+      .sidebar-toggle {
+        display: block;
+      }
+
+      .sidebar-toggle.open {
+        left: calc(var(--sidebar-width) + 16px);
+      }
+
+      .content {
+        margin-left: 0;
+        padding: 48px 32px;
+      }
+
+      .footer {
+        margin-left: 0;
+      }
+
+      /* Overlay when sidebar is open */
+      .sidebar-overlay {
+        display: none;
+        position: fixed;
+        top: 80px;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(0,0,0,0.3);
+        z-index: 99;
+      }
+
+      .sidebar-overlay.open {
+        display: block;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .nav {
+        padding: 20px 24px;
+      }
+
+      .nav-links {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        background: var(--white);
+        flex-direction: column;
+        padding: 24px;
+        gap: 20px;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+      }
+
+      .nav-links.active {
+        display: flex;
+      }
+
+      .nav-toggle {
+        display: flex;
+      }
+
+      .content {
+        padding: 32px 24px;
+      }
+
+      .markdown-content h1 {
+        font-size: 28px;
+      }
+
+      .markdown-content h2 {
+        font-size: 20px;
+      }
+
+      .footer {
+        flex-direction: column;
+        gap: 12px;
+        text-align: center;
+        padding: 24px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Navigation -->
+  <nav class="nav">
+    <a href="index.html" class="nav-logo">Janis Wang</a>
+    <div class="nav-toggle" onclick="toggleMenu()">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+    <div class="nav-links">
+      <a href="index.html#about" class="nav-link">About</a>
+      <a href="index.html#projects" class="nav-link">Projects</a>
+      <a href="index.html#contact" class="nav-link btn">Contact</a>
+    </div>
+  </nav>
+
+  <!-- Sidebar Toggle Button (Mobile) -->
+  <button class="sidebar-toggle" onclick="toggleSidebar()" aria-label="Toggle sidebar">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <path d="M3 12h18M3 6h18M3 18h18"/>
+    </svg>
+  </button>
+
+  <!-- Sidebar Overlay (Mobile) -->
+  <div class="sidebar-overlay" onclick="toggleSidebar()"></div>
+
+  <!-- Main Container -->
+  <div class="main-container">
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <div class="sidebar-header">
+        <div class="sidebar-title">Versions</div>
+        <div class="project-name" id="projectName">Loading...</div>
+      </div>
+      <ul class="version-list" id="versionList">
+        <!-- Versions will be populated by JavaScript -->
+      </ul>
+    </aside>
+
+    <!-- Content Area -->
+    <main class="content">
+      <a href="index.html#projects" class="back-link">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M19 12H5M12 19l-7-7 7-7"/>
+        </svg>
+        Back to Projects
+      </a>
+      <div class="content-inner">
+        <div id="markdownContent" class="markdown-content">
+          <div class="loading">
+            <div class="loading-spinner"></div>
+            <p>Loading content...</p>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <span>© 2026 Janis Wang</span>
+    <span>Made with taste</span>
+  </footer>
+
+  <script>
+    // Get project name from URL parameter
+    const urlParams = new URLSearchParams(window.location.search);
+    const projectName = urlParams.get('name');
+
+    let manifest = null;
+    let currentVersion = null;
+
+    // Toggle mobile menu
+    function toggleMenu() {
+      document.querySelector('.nav-links').classList.toggle('active');
+    }
+
+    // Toggle sidebar (mobile)
+    function toggleSidebar() {
+      document.querySelector('.sidebar').classList.toggle('open');
+      document.querySelector('.sidebar-toggle').classList.toggle('open');
+      document.querySelector('.sidebar-overlay').classList.toggle('open');
+    }
+
+    // Close menu when clicking a link
+    document.querySelectorAll('.nav-link').forEach(link => {
+      link.addEventListener('click', () => {
+        document.querySelector('.nav-links').classList.remove('active');
+      });
+    });
+
+    // Load project manifest
+    async function loadManifest() {
+      if (!projectName) {
+        showError('No project specified', 'Please provide a project name in the URL (e.g., ?name=my-project)');
+        return;
+      }
+
+      try {
+        const response = await fetch(`projects/${projectName}/manifest.json`);
+        if (!response.ok) {
+          throw new Error('Project not found');
+        }
+        manifest = await response.json();
+
+        // Update page title
+        document.title = `${manifest.title} | Janis Wang`;
+        document.getElementById('projectName').textContent = manifest.title;
+
+        // Populate version list
+        populateVersionList();
+
+        // Load the latest version by default, or from URL hash
+        const hashVersion = window.location.hash.replace('#', '');
+        const versionToLoad = hashVersion && manifest.versions.includes(hashVersion)
+          ? hashVersion
+          : manifest.latest || manifest.versions[manifest.versions.length - 1];
+
+        loadVersion(versionToLoad);
+
+      } catch (error) {
+        showError('Project Not Found', `Could not find project "${projectName}". Please check the project name and try again.`);
+      }
+    }
+
+    // Populate version buttons in sidebar
+    function populateVersionList() {
+      const versionList = document.getElementById('versionList');
+      versionList.innerHTML = '';
+
+      // Display versions in reverse order (latest first)
+      const versionsReversed = [...manifest.versions].reverse();
+
+      versionsReversed.forEach(version => {
+        const li = document.createElement('li');
+        li.className = 'version-item';
+
+        const button = document.createElement('button');
+        button.className = 'version-btn';
+        button.onclick = () => loadVersion(version);
+
+        const label = document.createElement('span');
+        label.className = 'version-label';
+        label.textContent = version;
+        button.appendChild(label);
+
+        // Add "latest" tag if applicable
+        if (version === manifest.latest) {
+          const tag = document.createElement('span');
+          tag.className = 'version-tag';
+          tag.textContent = 'latest';
+          button.appendChild(tag);
+        }
+
+        li.appendChild(button);
+        versionList.appendChild(li);
+      });
+    }
+
+    // Load a specific version's markdown content
+    async function loadVersion(version) {
+      currentVersion = version;
+
+      // Update URL hash
+      window.location.hash = version;
+
+      // Update active button state
+      document.querySelectorAll('.version-btn').forEach(btn => {
+        btn.classList.remove('active');
+        if (btn.querySelector('.version-label').textContent === version) {
+          btn.classList.add('active');
+        }
+      });
+
+      // Show loading state
+      const contentDiv = document.getElementById('markdownContent');
+      contentDiv.innerHTML = `
+        <div class="loading">
+          <div class="loading-spinner"></div>
+          <p>Loading ${version}...</p>
+        </div>
+      `;
+
+      // Close sidebar on mobile after selection
+      if (window.innerWidth <= 900) {
+        document.querySelector('.sidebar').classList.remove('open');
+        document.querySelector('.sidebar-toggle').classList.remove('open');
+        document.querySelector('.sidebar-overlay').classList.remove('open');
+      }
+
+      try {
+        const response = await fetch(`projects/${projectName}/${version}.md`);
+        if (!response.ok) {
+          throw new Error('Version not found');
+        }
+        const markdown = await response.text();
+
+        // Render markdown to HTML
+        contentDiv.innerHTML = marked.parse(markdown);
+
+        // Scroll to top of content
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+
+      } catch (error) {
+        contentDiv.innerHTML = `
+          <div class="error">
+            <h2>Content Not Found</h2>
+            <p>Could not load content for ${version}. The file may not exist.</p>
+          </div>
+        `;
+      }
+    }
+
+    // Show error message
+    function showError(title, message) {
+      document.getElementById('projectName').textContent = 'Error';
+      document.getElementById('versionList').innerHTML = '';
+      document.getElementById('markdownContent').innerHTML = `
+        <div class="error">
+          <h2>${title}</h2>
+          <p>${message}</p>
+          <p style="margin-top: 20px;">
+            <a href="index.html#projects" style="color: var(--primary);">← Back to Projects</a>
+          </p>
+        </div>
+      `;
+    }
+
+    // Handle browser back/forward
+    window.addEventListener('hashchange', () => {
+      const version = window.location.hash.replace('#', '');
+      if (version && manifest && manifest.versions.includes(version) && version !== currentVersion) {
+        loadVersion(version);
+      }
+    });
+
+    // Initialize
+    loadManifest();
+  </script>
+</body>
+</html>
