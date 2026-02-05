@@ -354,6 +354,17 @@
       height: auto;
       border-radius: 8px;
       margin: 20px 0;
+      display: block;
+    }
+
+    /* Ensure long words and URLs break properly */
+    .markdown-content {
+      word-wrap: break-word;
+      overflow-wrap: break-word;
+    }
+
+    .markdown-content a {
+      word-break: break-word;
     }
 
     .markdown-content hr {
@@ -439,6 +450,7 @@
     @media (max-width: 900px) {
       .sidebar {
         transform: translateX(-100%);
+        width: 260px;
       }
 
       .sidebar.open {
@@ -450,7 +462,7 @@
       }
 
       .sidebar-toggle.open {
-        left: calc(var(--sidebar-width) + 16px);
+        left: 276px;
       }
 
       .content {
@@ -460,6 +472,12 @@
 
       .footer {
         margin-left: 0;
+      }
+
+      /* Larger touch targets for version buttons */
+      .version-btn {
+        padding: 14px 16px;
+        font-size: 16px;
       }
 
       /* Overlay when sidebar is open */
@@ -481,7 +499,7 @@
 
     @media (max-width: 600px) {
       .nav {
-        padding: 20px 24px;
+        padding: 16px 20px;
       }
 
       .nav-links {
@@ -505,23 +523,134 @@
         display: flex;
       }
 
+      .main-container {
+        padding-top: 70px;
+      }
+
+      .sidebar {
+        top: 70px;
+        width: 260px;
+      }
+
+      .sidebar-toggle {
+        top: 86px;
+        left: 12px;
+        padding: 8px 12px;
+      }
+
       .content {
-        padding: 32px 24px;
+        padding: 24px 16px;
+      }
+
+      .back-link {
+        margin-bottom: 20px;
+        font-size: 13px;
       }
 
       .markdown-content h1 {
-        font-size: 28px;
+        font-size: 24px;
+        line-height: 1.3;
+        word-wrap: break-word;
       }
 
       .markdown-content h2 {
-        font-size: 20px;
+        font-size: 18px;
+        margin-top: 32px;
+        margin-bottom: 12px;
+      }
+
+      .markdown-content h3 {
+        font-size: 16px;
+        margin-top: 24px;
+      }
+
+      .markdown-content p {
+        font-size: 15px;
+        line-height: 1.7;
+        margin-bottom: 14px;
+      }
+
+      .markdown-content ul,
+      .markdown-content ol {
+        padding-left: 20px;
+      }
+
+      .markdown-content li {
+        font-size: 15px;
+        line-height: 1.6;
+        margin-bottom: 6px;
+      }
+
+      .markdown-content pre {
+        padding: 16px;
+        border-radius: 6px;
+        font-size: 13px;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+      }
+
+      .markdown-content code {
+        font-size: 13px;
+        word-break: break-word;
+      }
+
+      .markdown-content blockquote {
+        padding-left: 16px;
+        margin: 16px 0;
+        font-size: 14px;
+      }
+
+      .markdown-content img {
+        margin: 16px 0;
+        border-radius: 6px;
+      }
+
+      .markdown-content table {
+        display: block;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        font-size: 14px;
+      }
+
+      .markdown-content th,
+      .markdown-content td {
+        padding: 10px;
+        white-space: nowrap;
       }
 
       .footer {
         flex-direction: column;
         gap: 12px;
         text-align: center;
-        padding: 24px;
+        padding: 20px 16px;
+      }
+    }
+
+    /* Extra small screens */
+    @media (max-width: 400px) {
+      .nav {
+        padding: 14px 16px;
+      }
+
+      .nav-logo {
+        font-size: 16px;
+      }
+
+      .content {
+        padding: 20px 14px;
+      }
+
+      .markdown-content h1 {
+        font-size: 22px;
+      }
+
+      .markdown-content h2 {
+        font-size: 17px;
+      }
+
+      .markdown-content p,
+      .markdown-content li {
+        font-size: 14px;
       }
     }
   </style>
