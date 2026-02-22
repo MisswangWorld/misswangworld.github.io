@@ -779,11 +779,11 @@
         document.title = `${manifest.title} | Janis Wang`;
         document.getElementById('projectName').textContent = manifest.title;
 
-        // Set sidebar logo
+        // Set sidebar logo — uses sidebarLogo if specified, falls back to logo
         const logoEl = document.getElementById('sidebarLogo');
-        if (manifest.logo) {
-          const logoPath = `projects/${projectName}/${manifest.logo.replace(/^\//, '')}`;
-          logoEl.src = logoPath;
+        const sidebarLogoSrc = manifest.sidebarLogo || manifest.logo;
+        if (sidebarLogoSrc) {
+          logoEl.src = `projects/${projectName}/${sidebarLogoSrc.replace(/^\//, '')}`;
           logoEl.alt = manifest.title;
           logoEl.style.display = 'block';
         } else {

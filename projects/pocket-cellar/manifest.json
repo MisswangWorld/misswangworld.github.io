@@ -2,6 +2,7 @@
   "title": "Pocket Cellar | Your wine, in your pocket",
   "description": "Your Personal Wine Cellar Manager.",
   "logo": "/logo.png",
+  "sidebarLogo": "/sidebar-logo.png",
   "badge": "IOS APP",
   "color": "#fbac2f",
   "versions": ["v1"],

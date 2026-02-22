@@ -19,7 +19,8 @@ This document explains how to add and manage projects on your portfolio website.
   manifest.json           # Global: Lists all project IDs
   your-project-name/
     manifest.json         # Project info (title, description, logo, versions)
-    logo.png              # Optional: Project logo image
+    logo.png              # Optional: Project logo (card + sidebar fallback)
+    sidebar-logo.png      # Optional: Alternate logo for the project page sidebar
     v1.md                 # Required: First version content
     v2.md                 # Optional: Second version
     v3.md                 # Optional: Third version
@@ -115,6 +116,7 @@ Each project folder must have a `manifest.json` file with project info.
   "title": "Your Project Title",
   "description": "A brief description of the project",
   "logo": "logo.png",
+  "sidebarLogo": "sidebar-logo.png",
   "badge": "NEW",
   "color": "#fbac2f",
   "versions": ["v1", "v2", "v3"],
@@ -128,10 +130,10 @@ Each project folder must have a `manifest.json` file with project info.
 |-------|------|----------|-------------|
 | `title` | string | Yes | Display name for the project |
 | `description` | string | Yes | Brief description (1-2 sentences) for project cards |
-| `logo` | string | No | Logo filename (e.g., "logo.png") - place in project folder |
-| `badge` | string | No | Badge text (e.g., "NEW", "FEATURED", "DEMO") |
-| `color` | string | No | Background color for card (hex format, defaults to primary) |
-| `title` | string | Yes | Display name of your project (can include spaces and special characters) |
+| `logo` | string | No | Logo filename (e.g., `"logo.png"`) — used on project cards and as the sidebar fallback |
+| `sidebarLogo` | string | No | Alternate logo for the project page sidebar (e.g., `"sidebar-logo.png"`). Falls back to `logo` if omitted. Useful when the card logo is landscape/wide and a compact icon suits the sidebar better. |
+| `badge` | string | No | Badge text (e.g., `"NEW"`, `"IOS APP"`, `"DEMO"`) |
+| `color` | string | No | Background color for card (hex format, defaults to primary yellow) |
 | `versions` | array | Yes | List of available versions in chronological order (oldest first) |
 | `latest` | string | No | The version to highlight as "latest" (defaults to last in array) |
 
