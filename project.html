@@ -135,6 +135,20 @@
       margin-bottom: 24px;
     }
 
+    .sidebar-logo {
+      max-width: 100%;
+      max-height: 80px;
+      width: auto;
+      height: auto;
+      object-fit: contain;
+      display: block;
+      margin-bottom: 16px;
+    }
+
+    .sidebar-logo[src=''] {
+      display: none;
+    }
+
     .sidebar-title {
       font-family: 'Syne', sans-serif;
       font-size: 14px;
@@ -686,6 +700,7 @@
     <!-- Sidebar -->
     <aside class="sidebar">
       <div class="sidebar-header">
+        <img id="sidebarLogo" class="sidebar-logo" src="" alt="" aria-hidden="true">
         <div class="sidebar-title">Versions</div>
         <div class="project-name" id="projectName">Loading...</div>
       </div>
@@ -763,6 +778,17 @@
         // Update page title
         document.title = `${manifest.title} | Janis Wang`;
         document.getElementById('projectName').textContent = manifest.title;
+
+        // Set sidebar logo
+        const logoEl = document.getElementById('sidebarLogo');
+        if (manifest.logo) {
+          const logoPath = `projects/${projectName}/${manifest.logo.replace(/^\//, '')}`;
+          logoEl.src = logoPath;
+          logoEl.alt = manifest.title;
+          logoEl.style.display = 'block';
+        } else {
+          logoEl.style.display = 'none';
+        }
 
         // Populate version list
         populateVersionList();
