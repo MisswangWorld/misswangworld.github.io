@@ -2,46 +2,37 @@
   {
     "id": "job-1",
     "type": "work",
-    "year": "2022 – Present",
-    "title": "Senior Software Engineer",
-    "organization": "Atlassian",
+    "year": "2019 – 2026",
+    "title": "Software Developer",
+    "organization": "Fetch TV",
     "location": "Sydney, Australia",
-    "highlights": ["React", "TypeScript", "Design Systems", "Led team of 5", "Shipped 4 products"]
+    "highlights": ["Web Fundamental", "TypeScript", "Javascript", "Node.js", "LightningJS", "Webpack", "Performance Optimization", "Unit/functional Tests"]
   },
   {
     "id": "job-2",
     "type": "work",
-    "year": "2019 – 2022",
-    "title": "Software Engineer",
-    "organization": "Canva",
+    "year": "2016 – 2019",
+    "title": "Full Stack Developer",
+    "organization": "Menulog",
     "location": "Sydney, Australia",
-    "highlights": ["Vue.js", "Node.js", "GraphQL", "Performance optimisation", "A/B testing"]
+    "highlights": ["PHP", "Node.js", "AWS", "WordPress", "AWS", "Gulp", "Agile", "CI/CD", "GTM"]
   },
   {
     "id": "edu-1",
     "type": "education",
-    "year": "2017 – 2019",
+    "year": "2014 – 2016",
     "title": "Master of Information Technology",
-    "organization": "University of Sydney",
+    "organization": "University of Wollongong",
     "location": "Sydney, Australia",
-    "highlights": ["Dean's List", "Thesis: AI-assisted UI generation", "GPA 3.9"]
-  },
-  {
-    "id": "job-3",
-    "type": "work",
-    "year": "2016 – 2017",
-    "title": "Junior Frontend Developer",
-    "organization": "Freelance",
-    "location": "Remote",
-    "highlights": ["HTML / CSS / JS", "WordPress", "Client projects"]
+    "highlights": ["Distinction", "Data Mining", "Machine Learning", "Cloud Computing", "Robotics"]
   },
   {
     "id": "edu-2",
     "type": "education",
-    "year": "2013 – 2016",
+    "year": "2009 – 2013",
     "title": "B.Sc. Computer Science",
-    "organization": "University of Melbourne",
-    "location": "Melbourne, Australia",
-    "highlights": ["First Class Honours", "Software Engineering", "Human-Computer Interaction"]
+    "organization": "Hubei Engineering University",
+    "location": "Hubei, China",
+    "highlights": ["C", "Java", "Software Engineering", "Data Structures and Algorithms"]
   }
 ]
