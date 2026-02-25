@@ -1,0 +1,47 @@
+[
+  {
+    "id": "job-1",
+    "type": "work",
+    "year": "2022 – Present",
+    "title": "Senior Software Engineer",
+    "organization": "Atlassian",
+    "location": "Sydney, Australia",
+    "highlights": ["React", "TypeScript", "Design Systems", "Led team of 5", "Shipped 4 products"]
+  },
+  {
+    "id": "job-2",
+    "type": "work",
+    "year": "2019 – 2022",
+    "title": "Software Engineer",
+    "organization": "Canva",
+    "location": "Sydney, Australia",
+    "highlights": ["Vue.js", "Node.js", "GraphQL", "Performance optimisation", "A/B testing"]
+  },
+  {
+    "id": "edu-1",
+    "type": "education",
+    "year": "2017 – 2019",
+    "title": "Master of Information Technology",
+    "organization": "University of Sydney",
+    "location": "Sydney, Australia",
+    "highlights": ["Dean's List", "Thesis: AI-assisted UI generation", "GPA 3.9"]
+  },
+  {
+    "id": "job-3",
+    "type": "work",
+    "year": "2016 – 2017",
+    "title": "Junior Frontend Developer",
+    "organization": "Freelance",
+    "location": "Remote",
+    "highlights": ["HTML / CSS / JS", "WordPress", "Client projects"]
+  },
+  {
+    "id": "edu-2",
+    "type": "education",
+    "year": "2013 – 2016",
+    "title": "B.Sc. Computer Science",
+    "organization": "University of Melbourne",
+    "location": "Melbourne, Australia",
+    "highlights": ["First Class Honours", "Software Engineering", "Human-Computer Interaction"]
+  }
+]

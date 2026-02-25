@@ -1,0 +1,801 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="About Janis Wang - Software Developer & Product Designer based in Sydney.">
+  <title>About Me | Janis Wang</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --primary: #fbac2f;
+      --primary-dark: #e99a1e;
+      --primary-light: #ffc04d;
+      --accent: #2E9AD0;
+      --black: #1a1a1a;
+      --gray-dark: #666;
+      --gray: #999;
+      --gray-light: #f5f5f2;
+      --white: #FAF9F6;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: var(--white);
+      color: var(--black);
+      line-height: 1.6;
+    }
+
+    /* ── Navigation ── */
+    .nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 24px 48px;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      background: rgba(250, 249, 246, 0.95);
+      backdrop-filter: blur(10px);
+      z-index: 1000;
+    }
+
+    .nav-logo {
+      font-family: 'Syne', sans-serif;
+      font-size: 18px;
+      font-weight: 600;
+      color: var(--black);
+      text-decoration: none;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 32px;
+      align-items: center;
+    }
+
+    .nav-link {
+      font-family: 'Inter', sans-serif;
+      font-size: 14px;
+      color: var(--gray-dark);
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+
+    .nav-link:hover {
+      color: var(--primary);
+    }
+
+    .nav-link.active {
+      color: var(--black);
+      font-weight: 500;
+    }
+
+    .nav-link.btn {
+      background: var(--black);
+      color: white;
+      padding: 10px 24px;
+      border-radius: 6px;
+    }
+
+    .nav-link.btn:hover {
+      background: var(--primary);
+      color: var(--black);
+    }
+
+    /* Mobile menu */
+    .nav-toggle {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      padding: 5px;
+    }
+
+    .nav-toggle span {
+      width: 24px;
+      height: 2px;
+      background: var(--black);
+      transition: 0.3s;
+    }
+
+    /* ── Page header ── */
+    .page-header {
+      background: var(--primary);
+      padding: 140px 48px 64px;
+      text-align: center;
+    }
+
+    .page-header h1 {
+      font-family: 'Syne', sans-serif;
+      font-size: clamp(32px, 5vw, 52px);
+      font-weight: 700;
+      color: var(--black);
+      line-height: 1.1;
+    }
+
+    .page-header p {
+      margin-top: 12px;
+      font-size: 15px;
+      color: rgba(0, 0, 0, 0.55);
+    }
+
+    /* ── Layout ── */
+    .page-body {
+      display: flex;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 64px 48px 100px;
+      gap: 48px;
+      position: relative;
+    }
+
+    /* ── Timeline (main content) ── */
+    .timeline {
+      flex: 1;
+      min-width: 0;
+    }
+
+    /* The wavy spine */
+    .timeline-spine {
+      position: relative;
+      padding-bottom: 32px;
+    }
+
+    /* ── Individual node ── */
+    .timeline-node {
+      display: flex;
+      align-items: flex-start;
+      margin-bottom: 0;
+      position: relative;
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.5s ease, transform 0.5s ease;
+    }
+
+    .timeline-node.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Alternate left/right for snake effect */
+    .timeline-node:nth-child(odd) {
+      flex-direction: row;
+    }
+
+    .timeline-node:nth-child(even) {
+      flex-direction: row-reverse;
+    }
+
+    /* Connector section: dot + vertical line */
+    .node-connector {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      flex-shrink: 0;
+      width: 48px;
+      position: relative;
+    }
+
+    .node-dot {
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      background: var(--white);
+      border: 3px solid var(--primary);
+      flex-shrink: 0;
+      margin-top: 20px;
+      transition: background 0.3s, border-color 0.3s, transform 0.3s;
+      position: relative;
+      z-index: 1;
+    }
+
+    .timeline-node:hover .node-dot {
+      background: var(--primary);
+      transform: scale(1.3);
+    }
+
+    .timeline-node[data-type="education"] .node-dot {
+      border-color: var(--accent);
+    }
+
+    .timeline-node[data-type="education"]:hover .node-dot {
+      background: var(--accent);
+    }
+
+    /* Vertical line segment between nodes */
+    .node-line {
+      width: 2px;
+      flex: 1;
+      min-height: 40px;
+      background: linear-gradient(to bottom, var(--primary), var(--primary-light));
+      margin-top: 4px;
+    }
+
+    .timeline-node[data-type="education"] .node-line {
+      background: linear-gradient(to bottom, var(--accent), #6dc5e8);
+    }
+
+    /* Last node has no line below */
+    .timeline-node:last-child .node-line {
+      display: none;
+    }
+
+    /* Horizontal connector arm from spine to card */
+    .node-arm {
+      width: clamp(24px, 4vw, 48px);
+      height: 2px;
+      background: var(--gray-light);
+      flex-shrink: 0;
+      margin-top: 27px;
+    }
+
+    .timeline-node:nth-child(even) .node-arm {
+      order: -1;
+    }
+
+    /* ── Card ── */
+    .node-card {
+      flex: 1;
+      background: white;
+      border-radius: 12px;
+      padding: 24px 28px;
+      margin: 8px 0 40px;
+      box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      cursor: default;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .node-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 4px;
+      height: 100%;
+      background: var(--primary);
+      border-radius: 12px 0 0 12px;
+    }
+
+    .timeline-node[data-type="education"] .node-card::before {
+      background: var(--accent);
+    }
+
+    .timeline-node:hover .node-card {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 32px rgba(0, 0, 0, 0.1);
+    }
+
+    .node-year {
+      font-family: 'Syne', sans-serif;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 1px;
+      color: var(--primary);
+      text-transform: uppercase;
+      margin-bottom: 6px;
+    }
+
+    .timeline-node[data-type="education"] .node-year {
+      color: var(--accent);
+    }
+
+    .node-title {
+      font-family: 'Syne', sans-serif;
+      font-size: 17px;
+      font-weight: 700;
+      color: var(--black);
+      margin-bottom: 4px;
+    }
+
+    .node-org {
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--gray-dark);
+    }
+
+    .node-location {
+      font-size: 12px;
+      color: var(--gray);
+      margin-top: 2px;
+    }
+
+    .node-highlights {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 14px;
+    }
+
+    .highlight-tag {
+      font-size: 11px;
+      font-weight: 500;
+      padding: 4px 10px;
+      border-radius: 100px;
+      background: var(--gray-light);
+      color: var(--gray-dark);
+      white-space: nowrap;
+    }
+
+    .timeline-node[data-type="work"] .highlight-tag {
+      background: #fff8ec;
+      color: #a06a00;
+    }
+
+    .timeline-node[data-type="education"] .highlight-tag {
+      background: #edf6fc;
+      color: #1a6a96;
+    }
+
+    /* ── Floating Sidebar ── */
+    .sidebar-nav {
+      width: 220px;
+      flex-shrink: 0;
+      position: sticky;
+      top: 100px;
+      align-self: flex-start;
+      max-height: calc(100vh - 120px);
+      overflow-y: auto;
+    }
+
+    .sidebar-nav::-webkit-scrollbar {
+      width: 4px;
+    }
+
+    .sidebar-nav::-webkit-scrollbar-track {
+      background: transparent;
+    }
+
+    .sidebar-nav::-webkit-scrollbar-thumb {
+      background: var(--gray-light);
+      border-radius: 4px;
+    }
+
+    .sidebar-section-label {
+      font-family: 'Syne', sans-serif;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--gray);
+      padding: 4px 0 6px;
+      margin-top: 16px;
+    }
+
+    .sidebar-section-label:first-child {
+      margin-top: 0;
+    }
+
+    .sidebar-item {
+      display: flex;
+      align-items: baseline;
+      gap: 8px;
+      padding: 6px 10px;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background 0.2s, color 0.2s;
+      text-decoration: none;
+      border: none;
+      background: none;
+      width: 100%;
+      text-align: left;
+    }
+
+    .sidebar-item:hover {
+      background: var(--gray-light);
+    }
+
+    .sidebar-item.active {
+      background: var(--gray-light);
+    }
+
+    .sidebar-item.active .sidebar-item-year {
+      color: var(--primary);
+    }
+
+    .sidebar-item.active .sidebar-item-name {
+      color: var(--black);
+    }
+
+    .sidebar-item-year {
+      font-family: 'Syne', sans-serif;
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--gray);
+      flex-shrink: 0;
+      transition: color 0.2s;
+    }
+
+    .sidebar-item-name {
+      font-size: 12px;
+      color: var(--gray-dark);
+      line-height: 1.4;
+      transition: color 0.2s;
+    }
+
+    /* Mobile sidebar toggle */
+    .sidebar-toggle {
+      display: none;
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      background: var(--black);
+      color: white;
+      border: none;
+      cursor: pointer;
+      font-size: 20px;
+      align-items: center;
+      justify-content: center;
+      z-index: 900;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.2);
+      transition: background 0.3s;
+    }
+
+    .sidebar-toggle:hover {
+      background: var(--primary);
+      color: var(--black);
+    }
+
+    .sidebar-drawer {
+      display: none;
+      position: fixed;
+      bottom: 84px;
+      right: 24px;
+      width: 220px;
+      background: white;
+      border-radius: 12px;
+      padding: 16px;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.15);
+      z-index: 901;
+      max-height: 60vh;
+      overflow-y: auto;
+    }
+
+    .sidebar-drawer.open {
+      display: block;
+    }
+
+    /* ── Footer ── */
+    .footer {
+      padding: 24px 48px;
+      background: #111;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      color: #444;
+      font-size: 12px;
+    }
+
+    .footer a {
+      color: #444;
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+
+    .footer a:hover {
+      color: var(--primary);
+    }
+
+    /* ── Loading state ── */
+    .timeline-loading {
+      text-align: center;
+      padding: 80px 0;
+      color: var(--gray);
+      font-size: 14px;
+    }
+
+    /* ── Responsive ── */
+    @media (max-width: 900px) {
+      .page-body {
+        padding: 48px 32px 80px;
+        gap: 0;
+      }
+
+      .sidebar-nav {
+        display: none;
+      }
+
+      .sidebar-toggle {
+        display: flex;
+      }
+
+      .timeline-node:nth-child(even) {
+        flex-direction: row;
+      }
+
+      .node-arm {
+        width: 20px;
+      }
+
+      .timeline-node:nth-child(even) .node-arm {
+        order: unset;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .nav {
+        padding: 20px 24px;
+      }
+
+      .nav-links {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        background: var(--white);
+        flex-direction: column;
+        padding: 24px;
+        gap: 20px;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+      }
+
+      .nav-links.active {
+        display: flex;
+      }
+
+      .nav-toggle {
+        display: flex;
+      }
+
+      .page-header {
+        padding: 120px 24px 48px;
+      }
+
+      .page-body {
+        padding: 40px 24px 80px;
+      }
+
+      .node-card {
+        padding: 18px 20px;
+      }
+
+      .footer {
+        flex-direction: column;
+        gap: 12px;
+        text-align: center;
+        padding: 24px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navigation -->
+  <nav class="nav">
+    <a href="index.html" class="nav-logo">Janis Wang</a>
+    <div class="nav-toggle" onclick="toggleMenu()">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+    <div class="nav-links">
+      <a href="about-me.html" class="nav-link active">About</a>
+      <a href="projects.html" class="nav-link">Projects</a>
+      <a href="index.html#contact" class="nav-link btn">Contact</a>
+    </div>
+  </nav>
+
+  <!-- Page Header -->
+  <header class="page-header">
+    <h1>About <span style="color: rgba(0,0,0,0.4);">Me</span></h1>
+    <p>A timeline of where I've been and what I've built.</p>
+  </header>
+
+  <!-- Body: timeline + sidebar -->
+  <div class="page-body">
+
+    <!-- Timeline -->
+    <main class="timeline">
+      <div class="timeline-spine" id="timelineSpine">
+        <div class="timeline-loading">Loading timeline…</div>
+      </div>
+    </main>
+
+    <!-- Sticky sidebar (desktop) -->
+    <aside class="sidebar-nav" id="sidebarNav" aria-label="Timeline navigation">
+      <!-- Populated by JS -->
+    </aside>
+
+  </div>
+
+  <!-- Mobile: floating sidebar toggle + drawer -->
+  <button class="sidebar-toggle" onclick="toggleDrawer()" aria-label="Toggle navigation">≡</button>
+  <div class="sidebar-drawer" id="sidebarDrawer">
+    <!-- Populated by JS -->
+  </div>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <span>© 2026 Janis Wang</span>
+    <span>Made with taste</span>
+  </footer>
+
+  <script>
+    // ── Mobile menu ──────────────────────────────────────────────
+    function toggleMenu() {
+      document.querySelector('.nav-links').classList.toggle('active');
+    }
+
+    document.querySelectorAll('.nav-link').forEach(link => {
+      link.addEventListener('click', () => {
+        document.querySelector('.nav-links').classList.remove('active');
+      });
+    });
+
+    // ── Mobile sidebar drawer ─────────────────────────────────────
+    function toggleDrawer() {
+      document.getElementById('sidebarDrawer').classList.toggle('open');
+    }
+
+    document.addEventListener('click', e => {
+      const drawer = document.getElementById('sidebarDrawer');
+      const toggle = document.querySelector('.sidebar-toggle');
+      if (!drawer.contains(e.target) && !toggle.contains(e.target)) {
+        drawer.classList.remove('open');
+      }
+    });
+
+    // ── Render helpers ────────────────────────────────────────────
+    function getStartYear(yearStr) {
+      const match = yearStr.match(/\d{4}/);
+      return match ? parseInt(match[0], 10) : 0;
+    }
+
+    function renderHighlights(highlights) {
+      return highlights
+        .map(h => `<span class="highlight-tag">${h}</span>`)
+        .join('');
+    }
+
+    function renderTimelineNode(entry) {
+      return `
+        <div class="timeline-node" data-type="${entry.type}" id="${entry.id}">
+          <div class="node-connector">
+            <div class="node-dot"></div>
+            <div class="node-line"></div>
+          </div>
+          <div class="node-arm"></div>
+          <div class="node-card">
+            <div class="node-year">${entry.year}</div>
+            <div class="node-title">${entry.title}</div>
+            <div class="node-org">${entry.organization}</div>
+            <div class="node-location">${entry.location}</div>
+            ${entry.highlights && entry.highlights.length
+              ? `<div class="node-highlights">${renderHighlights(entry.highlights)}</div>`
+              : ''}
+          </div>
+        </div>
+      `;
+    }
+
+    function renderSidebarContent(entries) {
+      // Group by type, preserve display order (newest first)
+      const workEntries = entries.filter(e => e.type === 'work');
+      const eduEntries = entries.filter(e => e.type === 'education');
+
+      function itemHtml(entry) {
+        // Show only the start year
+        const year = String(getStartYear(entry.year));
+        return `
+          <button class="sidebar-item" data-target="${entry.id}" onclick="scrollToNode('${entry.id}')">
+            <span class="sidebar-item-year">${year}</span>
+            <span class="sidebar-item-name">${entry.organization}</span>
+          </button>
+        `;
+      }
+
+      let html = '';
+      if (workEntries.length) {
+        html += `<div class="sidebar-section-label">Professional Experience</div>`;
+        html += workEntries.map(itemHtml).join('');
+      }
+      if (eduEntries.length) {
+        html += `<div class="sidebar-section-label">Education</div>`;
+        html += eduEntries.map(itemHtml).join('');
+      }
+      return html;
+    }
+
+    // ── Smooth scroll to node ─────────────────────────────────────
+    function scrollToNode(id) {
+      const el = document.getElementById(id);
+      if (!el) return;
+      const offset = 100; // nav height buffer
+      const top = el.getBoundingClientRect().top + window.scrollY - offset;
+      window.scrollTo({ top, behavior: 'smooth' });
+      document.getElementById('sidebarDrawer').classList.remove('open');
+    }
+
+    // ── Intersection Observer ─────────────────────────────────────
+    function setupObserver(entries) {
+      const nodes = document.querySelectorAll('.timeline-node');
+
+      // Fade-in observer
+      const fadeObserver = new IntersectionObserver(
+        records => {
+          records.forEach(record => {
+            if (record.isIntersecting) {
+              record.target.classList.add('visible');
+              fadeObserver.unobserve(record.target);
+            }
+          });
+        },
+        { threshold: 0.15 }
+      );
+
+      nodes.forEach(node => fadeObserver.observe(node));
+
+      // Active sidebar item observer
+      const activeObserver = new IntersectionObserver(
+        records => {
+          records.forEach(record => {
+            const id = record.target.id;
+            const buttons = document.querySelectorAll(`.sidebar-item[data-target="${id}"]`);
+            if (record.isIntersecting) {
+              document.querySelectorAll('.sidebar-item').forEach(b => b.classList.remove('active'));
+              buttons.forEach(b => b.classList.add('active'));
+            }
+          });
+        },
+        { threshold: 0.4, rootMargin: '-80px 0px -40% 0px' }
+      );
+
+      nodes.forEach(node => activeObserver.observe(node));
+    }
+
+    // ── Load & render ─────────────────────────────────────────────
+    async function loadTimeline() {
+      const spine = document.getElementById('timelineSpine');
+      const sidebarNav = document.getElementById('sidebarNav');
+      const sidebarDrawer = document.getElementById('sidebarDrawer');
+
+      try {
+        const res = await fetch('data/timeline.json');
+        if (!res.ok) throw new Error('Failed to load timeline data');
+        const raw = await res.json();
+
+        // Sort newest first
+        const entries = [...raw].sort(
+          (a, b) => getStartYear(b.year) - getStartYear(a.year)
+        );
+
+        // Render timeline nodes
+        spine.innerHTML = entries.map(renderTimelineNode).join('');
+
+        // Render sidebar (both desktop + mobile drawer share same markup)
+        const sidebarHtml = renderSidebarContent(entries);
+        sidebarNav.innerHTML = sidebarHtml;
+        sidebarDrawer.innerHTML = sidebarHtml;
+
+        // Activate observers
+        setupObserver(entries);
+
+      } catch (err) {
+        spine.innerHTML = '<div class="timeline-loading">Could not load timeline. Make sure you\'re running a local server.</div>';
+        console.error({ error: err });
+      }
+    }
+
+    loadTimeline();
+  </script>
+</body>
+</html>

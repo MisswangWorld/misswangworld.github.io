@@ -14,6 +14,7 @@ A modern, responsive portfolio website to showcase projects and connect with vis
 | Page | File | Description |
 |------|------|-------------|
 | Home | `index.html` | Landing page with hero, about, featured projects, and contact |
+| About Me | `about-me.html` | Snake timeline of work & education with floating sidebar nav |
 | All Projects | `projects.html` | Grid view of all projects |
 | Project Details | `project.html` | Individual project page with version sidebar |
 
@@ -48,10 +49,13 @@ No build step required - just upload all files.
 ```
 /
 ├── index.html              # Homepage
+├── about-me.html           # About Me — snake timeline
 ├── projects.html           # All projects page
 ├── project.html            # Project detail template
 ├── assets/
 │   └── avatar.jpg          # Profile photo
+├── data/
+│   └── timeline.json       # Work & education timeline entries
 ├── projects/
 │   ├── manifest.json       # Global project list
 │   └── example-project/    # Individual project folder
@@ -104,6 +108,34 @@ Edit `projects/manifest.json`:
 ```
 
 For detailed documentation, see [README-projects.md](README-projects.md).
+
+## Updating the About Me Timeline
+
+Edit `data/timeline.json`. Each entry follows this schema:
+
+```json
+{
+  "id": "job-1",
+  "type": "work",
+  "year": "2022 – Present",
+  "title": "Senior Software Engineer",
+  "organization": "Company Name",
+  "location": "City, Country",
+  "highlights": ["React", "Led team of 5"]
+}
+```
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `id` | string | Unique identifier (used for sidebar anchor links) |
+| `type` | `"work"` / `"education"` | Controls colour coding on the timeline |
+| `year` | string | Year or range displayed on the card |
+| `title` | string | Job title or degree name |
+| `organization` | string | Company or university name |
+| `location` | string | Work / study location |
+| `highlights` | string[] | Tags shown as inline pills on the card |
+
+Entries are sorted newest-first automatically at runtime.
 
 ## Customization
 
