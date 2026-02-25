@@ -580,19 +580,7 @@
 <body>
 
   <!-- Navigation -->
-  <nav class="nav">
-    <a href="index.html" class="nav-logo">Janis Wang</a>
-    <div class="nav-toggle" onclick="toggleMenu()">
-      <span></span>
-      <span></span>
-      <span></span>
-    </div>
-    <div class="nav-links">
-      <a href="about-me.html" class="nav-link active">About</a>
-      <a href="projects.html" class="nav-link">Projects</a>
-      <a href="index.html#contact" class="nav-link btn">Contact</a>
-    </div>
-  </nav>
+  <div id="nav-placeholder"></div>
 
   <!-- Page Header -->
   <header class="page-header">
@@ -629,18 +617,8 @@
     <span>Made with taste</span>
   </footer>
 
+  <script src="../components/nav.js"></script>
   <script>
-    // ── Mobile menu ──────────────────────────────────────────────
-    function toggleMenu() {
-      document.querySelector('.nav-links').classList.toggle('active');
-    }
-
-    document.querySelectorAll('.nav-link').forEach(link => {
-      link.addEventListener('click', () => {
-        document.querySelector('.nav-links').classList.remove('active');
-      });
-    });
-
     // ── Mobile sidebar drawer ─────────────────────────────────────
     function toggleDrawer() {
       document.getElementById('sidebarDrawer').classList.toggle('open');
@@ -769,7 +747,7 @@
       const sidebarDrawer = document.getElementById('sidebarDrawer');
 
       try {
-        const res = await fetch('data/timeline.json');
+        const res = await fetch('../content/timeline.json');
         if (!res.ok) throw new Error('Failed to load timeline data');
         const raw = await res.json();
 

@@ -1,0 +1,752 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Janis Wang - Software Developer & Product Designer based in Sydney. Dream it. Design it. Deploy it.">
+  <title>Janis Wang | Software Developer & Product Designer</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    :root {
+      --primary: #fbac2f;
+      --primary-dark: #e99a1e;
+      --primary-light: #ffc04d;
+      --accent: #2E9AD0;
+      --black: #1a1a1a;
+      --gray-dark: #666;
+      --gray: #999;
+      --gray-light: #f5f5f2;
+      --white: #FAF9F6;
+    }
+    
+    html {
+      scroll-behavior: smooth;
+    }
+    
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: var(--white);
+      color: var(--black);
+      line-height: 1.6;
+    }
+    
+    /* Navigation */
+    .nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 24px 48px;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      background: rgba(250, 249, 246, 0.95);
+      backdrop-filter: blur(10px);
+      z-index: 1000;
+    }
+    
+    .nav-logo {
+      font-family: 'Syne', sans-serif;
+      font-size: 18px;
+      font-weight: 600;
+      color: var(--black);
+      text-decoration: none;
+    }
+    
+    .nav-links {
+      display: flex;
+      gap: 32px;
+      align-items: center;
+    }
+    
+    .nav-link {
+      font-family: 'Inter', sans-serif;
+      font-size: 14px;
+      color: var(--gray-dark);
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+    
+    .nav-link:hover {
+      color: var(--primary);
+    }
+    
+    .nav-link.btn {
+      background: var(--black);
+      color: white;
+      padding: 10px 24px;
+      border-radius: 6px;
+    }
+    
+    .nav-link.btn:hover {
+      background: var(--primary);
+      color: var(--black);
+    }
+    
+    /* Mobile menu */
+    .nav-toggle {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      padding: 5px;
+    }
+    
+    .nav-toggle span {
+      width: 24px;
+      height: 2px;
+      background: var(--black);
+      transition: 0.3s;
+    }
+    
+    /* Hero Section */
+    .hero {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      min-height: 100vh;
+      background: var(--primary);
+      position: relative;
+      overflow: hidden;
+      padding-top: 80px;
+    }
+    
+    .hero-content {
+      padding: 80px 48px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    
+    .hero-tag {
+      color: rgba(0,0,0,0.5);
+      font-size: 14px;
+      margin-bottom: 16px;
+      letter-spacing: 1px;
+    }
+    
+    .hero-title {
+      font-family: 'Syne', sans-serif;
+      font-size: clamp(40px, 6vw, 64px);
+      font-weight: 700;
+      color: var(--black);
+      line-height: 1.1;
+      margin-bottom: 20px;
+    }
+    
+    .hero-subtitle {
+      font-family: 'Syne', sans-serif;
+      font-size: 14px;
+      color: rgba(0,0,0,0.7);
+      letter-spacing: 3px;
+      margin-bottom: 24px;
+      font-weight: 500;
+    }
+    
+    .hero-role {
+      font-size: 14px;
+      color: rgba(0,0,0,0.5);
+    }
+    
+    .hero-image-area {
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+      position: relative;
+    }
+    
+    /* Line art decoration */
+    .hero-line {
+      position: absolute;
+      top: 120px;
+      right: 60px;
+      width: 220px;
+      height: 300px;
+      border: 2px solid rgba(0,0,0,0.1);
+      border-radius: 110px 110px 0 0;
+      pointer-events: none;
+    }
+    
+    .hero-line::before {
+      content: '';
+      position: absolute;
+      top: -30px;
+      left: -30px;
+      right: -30px;
+      bottom: 30px;
+      border: 2px solid rgba(0,0,0,0.05);
+      border-radius: 140px 140px 0 0;
+    }
+    
+    .avatar-container {
+      position: relative;
+      z-index: 2;
+    }
+    
+    .avatar {
+      width: 300px;
+      height: 380px;
+      border-radius: 150px 150px 0 0;
+      object-fit: cover;
+      object-position: center top;
+      display: block;
+    }
+    
+    /* About Section */
+    .about {
+      padding: 80px 48px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    
+    .about-text h2 {
+      font-family: 'Syne', sans-serif;
+      font-size: 32px;
+      font-weight: 600;
+      margin-bottom: 8px;
+    }
+    
+    .about-text h2 span {
+      color: var(--primary);
+    }
+    
+    .about-text p {
+      color: var(--gray);
+      font-size: 15px;
+    }
+    
+    .about-stats {
+      display: flex;
+      gap: 56px;
+    }
+    
+    .stat {
+      text-align: center;
+    }
+    
+    .stat-value {
+      font-family: 'Syne', sans-serif;
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--black);
+      margin-bottom: 4px;
+    }
+    
+    .stat-label {
+      font-size: 12px;
+      color: var(--gray);
+    }
+    
+    .stat-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      margin: 0 auto 12px;
+      background: var(--primary);
+    }
+    
+    .stat:nth-child(2) .stat-dot { 
+      background: var(--accent); 
+    }
+    
+    /* Projects Section */
+    .projects {
+      padding: 80px 48px;
+      background: var(--gray-light);
+    }
+    
+    .projects-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    
+    .projects-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      margin-bottom: 48px;
+    }
+    
+    .projects-header h2 {
+      font-family: 'Syne', sans-serif;
+      font-size: 32px;
+      font-weight: 600;
+    }
+    
+    .projects-header h2 span {
+      color: var(--primary);
+    }
+    
+    .projects-header p {
+      color: var(--gray);
+      font-size: 14px;
+    }
+
+    .view-all-link {
+      color: var(--gray);
+      font-size: 14px;
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+
+    .view-all-link:hover {
+      color: var(--primary);
+    }
+
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 28px;
+    }
+    
+    .project-card {
+      background: white;
+      border-radius: 12px;
+      overflow: hidden;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      text-decoration: none;
+      color: inherit;
+      display: block;
+    }
+    
+    .project-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 16px 40px rgba(0,0,0,0.1);
+    }
+    
+    .project-image {
+      height: 180px;
+      background: var(--primary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+    }
+    
+    .project-card:nth-child(2) .project-image { 
+      background: var(--primary-dark); 
+    }
+    
+    .project-card:nth-child(3) .project-image { 
+      background: var(--primary-light);
+    }
+    
+    .project-number {
+      font-family: 'Syne', sans-serif;
+      font-size: 56px;
+      color: rgba(0,0,0,0.15);
+      font-weight: 700;
+    }
+
+    .project-logo {
+      width: 80px;
+      height: 80px;
+      object-fit: contain;
+      border-radius: 12px;
+    }
+
+    .project-badge {
+      position: absolute;
+      bottom: 14px;
+      left: 14px;
+      background: var(--accent);
+      color: white;
+      padding: 5px 12px;
+      border-radius: 4px;
+      font-size: 10px;
+      letter-spacing: 0.5px;
+      font-weight: 500;
+    }
+    
+    .project-info {
+      padding: 24px;
+    }
+    
+    .project-title {
+      font-family: 'Syne', sans-serif;
+      font-size: 16px;
+      font-weight: 600;
+      margin-bottom: 6px;
+      color: var(--black);
+    }
+    
+    .project-desc {
+      font-size: 13px;
+      color: var(--gray);
+    }
+    
+    /* Contact Section */
+    .contact {
+      padding: 100px 48px;
+      background: var(--black);
+      text-align: center;
+    }
+    
+    .contact h2 {
+      font-family: 'Syne', sans-serif;
+      font-size: 36px;
+      font-weight: 600;
+      color: white;
+      margin-bottom: 12px;
+    }
+    
+    .contact h2 span {
+      color: var(--primary);
+    }
+    
+    .contact p {
+      color: var(--gray-dark);
+      margin-bottom: 36px;
+      font-size: 15px;
+    }
+    
+    .contact-buttons {
+      display: flex;
+      justify-content: center;
+      gap: 16px;
+    }
+    
+    .contact-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 14px 32px;
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 500;
+      text-decoration: none;
+      transition: all 0.3s ease;
+    }
+    
+    .contact-btn.primary {
+      background: var(--primary);
+      color: var(--black);
+    }
+    
+    .contact-btn.primary:hover {
+      background: var(--primary-dark);
+      transform: translateY(-2px);
+    }
+    
+    .contact-btn.secondary {
+      background: transparent;
+      color: var(--gray);
+      border: 1px solid #333;
+    }
+    
+    .contact-btn.secondary:hover {
+      border-color: var(--primary);
+      color: var(--primary);
+    }
+    
+    /* Footer */
+    .footer {
+      padding: 24px 48px;
+      background: #111;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      color: #444;
+      font-size: 12px;
+    }
+    
+    .footer a {
+      color: #444;
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+    
+    .footer a:hover {
+      color: var(--primary);
+    }
+    
+    /* Responsive */
+    @media (max-width: 900px) {
+      .hero {
+        grid-template-columns: 1fr;
+        min-height: auto;
+        padding-top: 100px;
+      }
+      
+      .hero-content {
+        padding: 60px 32px 40px;
+        text-align: center;
+      }
+      
+      .hero-image-area {
+        justify-content: center;
+        padding: 0 32px 0;
+      }
+      
+      .hero-line {
+        display: none;
+      }
+      
+      .avatar {
+        width: 250px;
+        height: 320px;
+      }
+      
+      .about {
+        flex-direction: column;
+        gap: 40px;
+        text-align: center;
+        padding: 60px 32px;
+      }
+      
+      .about-stats {
+        gap: 40px;
+      }
+      
+      .projects {
+        padding: 60px 32px;
+      }
+      
+      .projects-header {
+        flex-direction: column;
+        gap: 8px;
+        text-align: center;
+      }
+      
+      .projects-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+      }
+      
+      .contact {
+        padding: 60px 32px;
+      }
+      
+      .contact-buttons {
+        flex-direction: column;
+        align-items: center;
+      }
+      
+      .footer {
+        flex-direction: column;
+        gap: 12px;
+        text-align: center;
+        padding: 24px 32px;
+      }
+    }
+    
+    @media (max-width: 600px) {
+      .nav {
+        padding: 20px 24px;
+      }
+      
+      .nav-links {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        background: var(--white);
+        flex-direction: column;
+        padding: 24px;
+        gap: 20px;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+      }
+      
+      .nav-links.active {
+        display: flex;
+      }
+      
+      .nav-toggle {
+        display: flex;
+      }
+      
+      .hero-content {
+        padding: 40px 24px 30px;
+      }
+      
+      .hero-title {
+        font-size: 36px;
+      }
+      
+      .about {
+        padding: 50px 24px;
+      }
+      
+      .about-stats {
+        flex-direction: column;
+        gap: 24px;
+      }
+      
+      .projects {
+        padding: 50px 24px;
+      }
+      
+      .contact {
+        padding: 50px 24px;
+      }
+      
+      .contact h2 {
+        font-size: 28px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Navigation -->
+  <div id="nav-placeholder"></div>
+  
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="hero-content">
+      <div class="hero-tag">— Hello</div>
+      <h1 class="hero-title">Hi, I'm<br>Janis Wang</h1>
+      <p class="hero-subtitle">DREAM IT. DESIGN IT. DEPLOY IT.</p>
+      <p class="hero-role">Software Developer & Product Designer</p>
+    </div>
+    
+    <div class="hero-image-area">
+      <div class="hero-line"></div>
+      <div class="avatar-container">
+        <img src="../assets/avatar.jpg" alt="Janis Wang" class="avatar">
+      </div>
+    </div>
+  </section>
+  
+  <!-- About Section -->
+  <section class="about" id="about">
+    <div class="about-text">
+      <h2>About <span>Me</span></h2>
+      <p>Bridging design and development</p>
+    </div>
+    <div class="about-stats">
+      <div class="stat">
+        <div class="stat-dot"></div>
+        <div class="stat-value">Master Degree</div>
+        <div class="stat-label">Education</div>
+      </div>
+      <div class="stat">
+        <div class="stat-dot"></div>
+        <div class="stat-value">Sydney</div>
+        <div class="stat-label">Location</div>
+      </div>
+      <div class="stat">
+        <div class="stat-dot"></div>
+        <div class="stat-value">7 Years</div>
+        <div class="stat-label">Experience</div>
+      </div>
+    </div>
+  </section>
+  
+  <!-- Projects Section -->
+  <section class="projects" id="projects">
+    <div class="projects-inner">
+      <div class="projects-header">
+        <h2>Featured <span>Projects</span></h2>
+        <a href="projects.html" class="view-all-link">View all projects →</a>
+      </div>
+      <div class="projects-grid" id="featuredProjectsGrid">
+        <!-- Projects loaded dynamically -->
+      </div>
+    </div>
+  </section>
+  
+  <!-- Contact Section -->
+  <section class="contact" id="contact">
+    <h2>Let's <span>Connect</span></h2>
+    <p>Have something to chat about? I'd love to hear from you.</p>
+    <div class="contact-buttons">
+      <a href="mailto:janis.j.wang@gmail.com" class="contact-btn primary">Email Me</a>
+      <a href="https://www.linkedin.com/in/janiswang/" target="_blank" rel="noopener noreferrer" class="contact-btn secondary">LinkedIn</a>
+    </div>
+  </section>
+  
+  <!-- Footer -->
+  <footer class="footer">
+    <span>© 2026 Janis Wang</span>
+    <span>Made with taste</span>
+  </footer>
+  
+  <script src="../components/nav.js"></script>
+  <script>
+    // Color palette for project cards
+    const colorPalette = [
+      '#fbac2f', // primary
+      '#e99a1e', // primary-dark
+      '#ffc04d', // primary-light
+    ];
+
+    // Load a single project's manifest
+    async function loadProjectManifest(projectId) {
+      try {
+        const response = await fetch(`../content/projects/${projectId}/manifest.json`);
+        if (!response.ok) return null;
+        const data = await response.json();
+        return { id: projectId, ...data };
+      } catch {
+        return null;
+      }
+    }
+
+    // Load featured projects
+    async function loadFeaturedProjects() {
+      const grid = document.getElementById('featuredProjectsGrid');
+      if (!grid) return;
+
+      try {
+        // Load global manifest to get featured list
+        const response = await fetch('../content/projects/manifest.json');
+        if (!response.ok) throw new Error('Failed to load');
+        const data = await response.json();
+        const featuredIds = data.featured || [];
+
+        // Load each project's manifest
+        const projects = await Promise.all(
+          featuredIds.map(id => loadProjectManifest(id))
+        );
+        const validProjects = projects.filter(p => p !== null);
+
+        if (validProjects.length === 0) {
+          grid.innerHTML = '<p style="color: var(--gray); grid-column: 1/-1; text-align: center;">Projects coming soon</p>';
+          return;
+        }
+
+        // Render project cards
+        grid.innerHTML = validProjects.map((project, index) => {
+          const color = project.color || colorPalette[index % colorPalette.length];
+          const number = String(index + 1).padStart(2, '0');
+          const logoPath = project.logo ? `../content/projects/${project.id}/${project.logo}` : null;
+
+          return `
+            <a href="project-single.html?name=${project.id}" class="project-card">
+              <div class="project-image" style="background: ${color};">
+                ${logoPath
+                  ? `<img src="${logoPath}" alt="${project.title}" class="project-logo" onerror="this.style.display='none';this.nextElementSibling.style.display='block';">
+                     <span class="project-number" style="display:none;">${number}</span>`
+                  : `<span class="project-number">${number}</span>`
+                }
+                ${project.badge ? `<span class="project-badge">${project.badge}</span>` : ''}
+              </div>
+              <div class="project-info">
+                <h3 class="project-title">${project.title}</h3>
+                <p class="project-desc">${project.description}</p>
+              </div>
+            </a>
+          `;
+        }).join('');
+
+      } catch (error) {
+        grid.innerHTML = '<p style="color: var(--gray); grid-column: 1/-1; text-align: center;">Projects coming soon</p>';
+      }
+    }
+
+    // Initialize featured projects
+    loadFeaturedProjects();
+  </script>
+</body>
+</html>

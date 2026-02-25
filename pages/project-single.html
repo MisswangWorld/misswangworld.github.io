@@ -671,19 +671,7 @@
 </head>
 <body>
   <!-- Navigation -->
-  <nav class="nav">
-    <a href="index.html" class="nav-logo">Janis Wang</a>
-    <div class="nav-toggle" onclick="toggleMenu()">
-      <span></span>
-      <span></span>
-      <span></span>
-    </div>
-    <div class="nav-links">
-      <a href="about-me.html" class="nav-link">About</a>
-      <a href="projects.html" class="nav-link">Projects</a>
-      <a href="index.html#contact" class="nav-link btn">Contact</a>
-    </div>
-  </nav>
+  <div id="nav-placeholder"></div>
 
   <!-- Sidebar Toggle Button (Mobile) -->
   <button class="sidebar-toggle" onclick="toggleSidebar()" aria-label="Toggle sidebar">
@@ -711,7 +699,7 @@
 
     <!-- Content Area -->
     <main class="content">
-      <a href="index.html#projects" class="back-link">
+      <a href="projects.html" class="back-link">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
           <path d="M19 12H5M12 19l-7-7 7-7"/>
         </svg>
@@ -734,6 +722,7 @@
     <span>Made with taste</span>
   </footer>
 
+  <script src="../components/nav.js"></script>
   <script>
     // Get project name from URL parameter
     const urlParams = new URLSearchParams(window.location.search);
@@ -742,24 +731,12 @@
     let manifest = null;
     let currentVersion = null;
 
-    // Toggle mobile menu
-    function toggleMenu() {
-      document.querySelector('.nav-links').classList.toggle('active');
-    }
-
     // Toggle sidebar (mobile)
     function toggleSidebar() {
       document.querySelector('.sidebar').classList.toggle('open');
       document.querySelector('.sidebar-toggle').classList.toggle('open');
       document.querySelector('.sidebar-overlay').classList.toggle('open');
     }
-
-    // Close menu when clicking a link
-    document.querySelectorAll('.nav-link').forEach(link => {
-      link.addEventListener('click', () => {
-        document.querySelector('.nav-links').classList.remove('active');
-      });
-    });
 
     // Load project manifest
     async function loadManifest() {
@@ -769,7 +746,7 @@
       }
 
       try {
-        const response = await fetch(`projects/${projectName}/manifest.json`);
+        const response = await fetch(`../content/projects/${projectName}/manifest.json`);
         if (!response.ok) {
           throw new Error('Project not found');
         }
@@ -783,7 +760,7 @@
         const logoEl = document.getElementById('sidebarLogo');
         const sidebarLogoSrc = manifest.sidebarLogo || manifest.logo;
         if (sidebarLogoSrc) {
-          logoEl.src = `projects/${projectName}/${sidebarLogoSrc.replace(/^\//, '')}`;
+          logoEl.src = `../content/projects/${projectName}/${sidebarLogoSrc.replace(/^\//, '')}`;
           logoEl.alt = manifest.title;
           logoEl.style.display = 'block';
         } else {
@@ -872,7 +849,7 @@
       }
 
       try {
-        const response = await fetch(`projects/${projectName}/${version}.md`);
+        const response = await fetch(`../content/projects/${projectName}/${version}.md`);
         if (!response.ok) {
           throw new Error('Version not found');
         }
@@ -903,7 +880,7 @@
           <h2>${title}</h2>
           <p>${message}</p>
           <p style="margin-top: 20px;">
-            <a href="index.html#projects" style="color: var(--primary);">← Back to Projects</a>
+            <a href="projects.html" style="color: var(--primary);">← Back to Projects</a>
           </p>
         </div>
       `;

@@ -347,19 +347,7 @@
 </head>
 <body>
   <!-- Navigation -->
-  <nav class="nav">
-    <a href="index.html" class="nav-logo">Janis Wang</a>
-    <div class="nav-toggle" onclick="toggleMenu()">
-      <span></span>
-      <span></span>
-      <span></span>
-    </div>
-    <div class="nav-links">
-      <a href="about-me.html" class="nav-link">About</a>
-      <a href="projects.html" class="nav-link active">Projects</a>
-      <a href="index.html#contact" class="nav-link btn">Contact</a>
-    </div>
-  </nav>
+  <div id="nav-placeholder"></div>
 
   <!-- Page Header -->
   <header class="page-header">
@@ -385,18 +373,8 @@
     <span>Made with taste</span>
   </footer>
 
+  <script src="../components/nav.js"></script>
   <script>
-    // Toggle mobile menu
-    function toggleMenu() {
-      document.querySelector('.nav-links').classList.toggle('active');
-    }
-
-    // Close menu when clicking a link
-    document.querySelectorAll('.nav-link').forEach(link => {
-      link.addEventListener('click', () => {
-        document.querySelector('.nav-links').classList.remove('active');
-      });
-    });
 
     // Color palette for project cards
     const colorPalette = [
@@ -410,7 +388,7 @@
 
     // Load a single project's manifest
     async function loadProjectManifest(projectId) {
-      const response = await fetch(`projects/${projectId}/manifest.json`);
+      const response = await fetch(`../content/projects/${projectId}/manifest.json`);
       if (!response.ok) return null;
       const data = await response.json();
       return { id: projectId, ...data };
@@ -422,7 +400,7 @@
 
       try {
         // Load global manifest to get project list
-        const response = await fetch('projects/manifest.json');
+        const response = await fetch('../content/projects/manifest.json');
         if (!response.ok) {
           throw new Error('Failed to load projects list');
         }
@@ -449,10 +427,10 @@
         grid.innerHTML = validProjects.map((project, index) => {
           const color = project.color || colorPalette[index % colorPalette.length];
           const number = String(index + 1).padStart(2, '0');
-          const logoPath = project.logo ? `projects/${project.id}/${project.logo}` : null;
+          const logoPath = project.logo ? `../content/projects/${project.id}/${project.logo}` : null;
 
           return `
-            <a href="project.html?name=${project.id}" class="project-card">
+            <a href="project-single.html?name=${project.id}" class="project-card">
               <div class="project-image" style="background: ${color};">
                 ${logoPath
                   ? `<img src="${logoPath}" alt="${project.title}" class="project-logo" onerror="this.style.display='none';this.nextElementSibling.style.display='block';">

@@ -13,10 +13,12 @@ A modern, responsive portfolio website to showcase projects and connect with vis
 
 | Page | File | Description |
 |------|------|-------------|
-| Home | `index.html` | Landing page with hero, about, featured projects, and contact |
-| About Me | `about-me.html` | Snake timeline of work & education with floating sidebar nav |
-| All Projects | `projects.html` | Grid view of all projects |
-| Project Details | `project.html` | Individual project page with version sidebar |
+| Home | `pages/index.html` | Landing page with hero, about, featured projects, and contact |
+| About Me | `pages/about-me.html` | Snake timeline of work & education with floating sidebar nav |
+| All Projects | `pages/projects.html` | Grid view of all projects |
+| Project Details | `pages/project-single.html` | Individual project page with version sidebar |
+
+Root `index.html` is a redirect shim — it immediately forwards visitors to `pages/index.html`.
 
 ## Quick Start
 
@@ -48,22 +50,27 @@ No build step required - just upload all files.
 
 ```
 /
-├── index.html              # Homepage
-├── about-me.html           # About Me — snake timeline
-├── projects.html           # All projects page
-├── project.html            # Project detail template
+├── index.html              # Root redirect → pages/index.html
+├── pages/
+│   ├── index.html          # Homepage
+│   ├── about-me.html       # About Me — snake timeline
+│   ├── projects.html       # All projects page
+│   └── project-single.html # Project detail template
+├── components/
+│   └── nav.js              # Shared navigation component
 ├── assets/
 │   └── avatar.jpg          # Profile photo
-├── data/
-│   └── timeline.json       # Work & education timeline entries
-├── projects/
-│   ├── manifest.json       # Global project list
-│   └── example-project/    # Individual project folder
-│       ├── manifest.json   # Project info
-│       ├── logo.png        # Project logo (optional)
-│       ├── v1.md           # Version 1 content
-│       ├── v2.md           # Version 2 content
-│       └── v3.md           # Version 3 content
+├── content/                # All data & content files
+│   ├── timeline.json       # About Me timeline entries
+│   └── projects/           # Project content & config
+│       ├── manifest.json   # Global project list
+│       ├── README-projects.md  # Detailed project system docs
+│       └── example-project/   # Individual project folder
+│           ├── manifest.json  # Project info
+│           ├── logo.png       # Project logo (optional)
+│           ├── v1.md          # Version 1 content
+│           ├── v2.md          # Version 2 content
+│           └── v3.md          # Version 3 content
 ├── README.md               # This file
 └── README-projects.md      # Detailed project system docs
 ```
@@ -107,11 +114,11 @@ Edit `projects/manifest.json`:
 }
 ```
 
-For detailed documentation, see [README-projects.md](README-projects.md).
+For detailed documentation, see [README-projects.md](content/projects/README-projects.md).
 
 ## Updating the About Me Timeline
 
-Edit `data/timeline.json`. Each entry follows this schema:
+Edit `content/timeline.json`. Each entry follows this schema:
 
 ```json
 {
