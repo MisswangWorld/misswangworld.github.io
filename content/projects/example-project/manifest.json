@@ -4,6 +4,8 @@
   "logo": "logo.png",
   "badge": "DEMO",
   "color": "#fbac2f",
+  "appStoreUrl": "",
+  "previewUrl": "",
   "versions": ["v1", "v2", "v3"],
   "latest": "v3"
 }

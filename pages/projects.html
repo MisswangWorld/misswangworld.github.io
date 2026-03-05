@@ -216,6 +216,41 @@
     .project-desc {
       font-size: 13px;
       color: var(--gray);
+      margin-bottom: 16px;
+    }
+
+    .project-link-btn {
+      display: inline-block;
+      text-decoration: none;
+      transition: opacity 0.2s ease;
+    }
+
+    .project-link-btn:hover {
+      opacity: 0.8;
+    }
+
+    .project-link-btn.app-store img {
+      height: 36px;
+      width: auto;
+      display: block;
+    }
+
+    .project-link-btn.preview {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 14px;
+      border-radius: 6px;
+      font-size: 12px;
+      font-weight: 500;
+      background: var(--accent);
+      color: #fff;
+    }
+
+    .project-link-btn.preview svg {
+      width: 14px;
+      height: 14px;
+      flex-shrink: 0;
     }
 
     /* Loading State */
@@ -429,6 +464,17 @@
           const number = String(index + 1).padStart(2, '0');
           const logoPath = project.logo ? `../content/projects/${project.id}/${project.logo}` : null;
 
+          const linkBtn = project.appStoreUrl
+            ? `<a href="${project.appStoreUrl}" class="project-link-btn app-store" target="_blank" rel="noopener noreferrer" onclick="event.stopPropagation()">
+                <img src="../assets/appstore-badge.png" alt="Available on the App Store">
+              </a>`
+            : project.previewUrl
+            ? `<a href="${project.previewUrl}" class="project-link-btn preview" target="_blank" rel="noopener noreferrer" onclick="event.stopPropagation()">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+                Live Preview
+              </a>`
+            : '';
+
           return `
             <a href="project-single.html?name=${project.id}" class="project-card">
               <div class="project-image" style="background: ${color};">
@@ -442,6 +488,7 @@
               <div class="project-info">
                 <h3 class="project-title">${project.title}</h3>
                 <p class="project-desc">${project.description}</p>
+                ${linkBtn}
               </div>
             </a>
           `;

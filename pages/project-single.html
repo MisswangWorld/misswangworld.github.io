@@ -217,6 +217,43 @@
       opacity: 0.7;
     }
 
+    .sidebar-link-btn {
+      display: block;
+      text-decoration: none;
+      transition: opacity 0.2s ease;
+      margin-bottom: 28px;
+    }
+
+    .sidebar-link-btn:hover {
+      opacity: 0.8;
+    }
+
+    .sidebar-link-btn.app-store img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    .sidebar-link-btn.preview {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      width: 100%;
+      padding: 10px 16px;
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 500;
+      background: var(--accent);
+      color: #fff;
+    }
+
+    .sidebar-link-btn.preview svg {
+      width: 15px;
+      height: 15px;
+      flex-shrink: 0;
+    }
+
     /* Sidebar toggle button */
     .sidebar-toggle {
       display: none;
@@ -689,9 +726,10 @@
     <aside class="sidebar">
       <div class="sidebar-header">
         <img id="sidebarLogo" class="sidebar-logo" src="" alt="" aria-hidden="true">
-        <div class="sidebar-title">Versions</div>
+        <div id="sidebarLinkContainer"></div>
         <div class="project-name" id="projectName">Loading...</div>
       </div>
+      <div class="sidebar-title">Versions</div>
       <ul class="version-list" id="versionList">
         <!-- Versions will be populated by JavaScript -->
       </ul>
@@ -767,6 +805,9 @@
           logoEl.style.display = 'none';
         }
 
+        // Populate sidebar link button
+        populateSidebarLink();
+
         // Populate version list
         populateVersionList();
 
@@ -780,6 +821,25 @@
 
       } catch (error) {
         showError('Project Not Found', `Could not find project "${projectName}". Please check the project name and try again.`);
+      }
+    }
+
+    // Populate the App Store / preview link button in sidebar
+    function populateSidebarLink() {
+      const container = document.getElementById('sidebarLinkContainer');
+      if (manifest.appStoreUrl) {
+        container.innerHTML = `
+          <a href="${manifest.appStoreUrl}" class="sidebar-link-btn app-store" target="_blank" rel="noopener noreferrer">
+            <img src="../assets/appstore-badge.png" alt="Available on the App Store">
+          </a>
+        `;
+      } else if (manifest.previewUrl) {
+        container.innerHTML = `
+          <a href="${manifest.previewUrl}" class="sidebar-link-btn preview" target="_blank" rel="noopener noreferrer">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+            Live Preview
+          </a>
+        `;
       }
     }
 
