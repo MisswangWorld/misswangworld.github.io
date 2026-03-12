@@ -1,0 +1,12 @@
+{
+  "name": "misswangworld",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "build:css": "sass styles/shared.scss styles/shared.css --no-source-map",
+    "watch:css": "sass --watch styles/shared.scss:styles/shared.css --no-source-map"
+  },
+  "devDependencies": {
+    "sass": "^1.77.0"
+  }
+}
