@@ -1,0 +1,11 @@
+{
+  "title": "SoroSoro",
+  "description": "It's about time.",
+  "logo": "/logo.png",
+  "sidebarLogo": "/sidebar-logo.png",
+  "badge": "IOS APP",
+  "color": "#fbac2f",
+  "appStoreUrl": "",
+  "versions": ["v1"],
+  "latest": "v1"
+}

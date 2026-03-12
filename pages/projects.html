@@ -154,9 +154,9 @@
       border-radius: 12px;
       overflow: hidden;
       transition: transform 0.3s ease, box-shadow 0.3s ease;
-      text-decoration: none;
       color: inherit;
       display: block;
+      cursor: pointer;
     }
 
     .project-card:hover {
@@ -476,7 +476,9 @@
             : '';
 
           return `
-            <a href="project-single.html?name=${project.id}" class="project-card">
+            <div class="project-card" role="link" tabindex="0"
+              onclick="window.location.href='project-single.html?name=${project.id}'"
+              onkeydown="if(event.key==='Enter')window.location.href='project-single.html?name=${project.id}'">
               <div class="project-image" style="background: ${color};">
                 ${logoPath
                   ? `<img src="${logoPath}" alt="${project.title}" class="project-logo" onerror="this.style.display='none';this.nextElementSibling.style.display='block';">
@@ -490,7 +492,7 @@
                 <p class="project-desc">${project.description}</p>
                 ${linkBtn}
               </div>
-            </a>
+            </div>
           `;
         }).join('');
 
