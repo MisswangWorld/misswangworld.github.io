@@ -10,31 +10,11 @@
   <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../styles/shared.css">
   <style>
-    /* Page Header */
-    .page-header {
-      padding: 140px 48px 60px;
-      background: var(--primary);
-      text-align: center;
-    }
-
-    .page-header h1 {
-      font-family: 'Syne', sans-serif;
-      font-size: 48px;
-      font-weight: 700;
-      color: var(--black);
-      margin-bottom: 12px;
-    }
-
-    .page-header p {
-      color: rgba(0,0,0,0.6);
-      font-size: 16px;
-    }
-
-    /* Projects Section */
-    .projects {
-      padding: 60px 48px 80px;
-      background: var(--gray-light);
-      min-height: calc(100vh - 300px);
+    /* Page */
+    .projects-page {
+      padding: 120px 48px 80px;
+      background: var(--white);
+      min-height: 100vh;
     }
 
     .projects-inner {
@@ -42,127 +22,326 @@
       margin: 0 auto;
     }
 
-    .projects-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 28px;
+    /* Header */
+    .projects-header {
+      margin-bottom: 40px;
     }
 
-    .project-card {
-      background: white;
-      border-radius: 12px;
-      overflow: hidden;
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-      color: inherit;
-      display: block;
-      cursor: pointer;
+    .projects-header h1 {
+      font-family: 'Syne', sans-serif;
+      font-size: clamp(32px, 5vw, 56px);
+      font-weight: 800;
+      color: var(--black);
+      line-height: 1;
+      margin-bottom: 28px;
+      letter-spacing: -1px;
     }
 
-    .project-card:hover {
-      transform: translateY(-6px);
-      box-shadow: 0 16px 40px rgba(0,0,0,0.1);
-    }
-
-    .project-image {
-      height: 180px;
+    /* Controls bar */
+    .controls-bar {
       display: flex;
       align-items: center;
-      justify-content: center;
-      position: relative;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
     }
 
-    .project-logo {
-      max-width: 60%;
-      max-height: 120px;
-      width: auto;
-      height: auto;
-      object-fit: contain;
-      border-radius: 12px;
+    /* Filter tabs */
+    .filter-tabs {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
     }
 
-    .project-number {
-      font-family: 'Syne', sans-serif;
-      font-size: 56px;
-      color: rgba(0,0,0,0.15);
-      font-weight: 700;
-    }
-
-    .project-badge {
-      position: absolute;
-      bottom: 14px;
-      left: 14px;
-      background: var(--accent);
-      color: white;
-      padding: 5px 12px;
+    .filter-tab {
+      padding: 7px 16px;
       border-radius: 4px;
-      font-size: 10px;
-      letter-spacing: 0.5px;
-      font-weight: 500;
-    }
-
-    .project-info {
-      padding: 24px;
-    }
-
-    .project-title {
-      font-family: 'Syne', sans-serif;
-      font-size: 16px;
+      font-size: 11px;
       font-weight: 600;
-      margin-bottom: 6px;
+      letter-spacing: 0.8px;
+      text-transform: uppercase;
+      border: 1.5px solid var(--black);
+      background: transparent;
+      color: var(--black);
+      cursor: pointer;
+      transition: all 0.15s ease;
+      font-family: 'Syne', sans-serif;
+    }
+
+    .filter-tab:hover {
+      background: var(--black);
+      color: var(--white);
+    }
+
+    .filter-tab.active {
+      background: var(--primary);
+      border-color: var(--primary);
       color: var(--black);
     }
 
-    .project-desc {
+    /* View toggle */
+    .view-toggle {
+      display: flex;
+      gap: 4px;
+    }
+
+    .view-btn {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      padding: 7px 14px;
+      border-radius: 4px;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.8px;
+      text-transform: uppercase;
+      border: 1.5px solid transparent;
+      background: transparent;
+      color: var(--gray);
+      cursor: pointer;
+      transition: all 0.15s ease;
+      font-family: 'Syne', sans-serif;
+    }
+
+    .view-btn.active {
+      border-color: var(--black);
+      color: var(--black);
+    }
+
+    /* ── GRID VIEW ── */
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+
+    .project-card {
+      display: block;
+      border-radius: 10px;
+      overflow: hidden;
+      cursor: pointer;
+      color: inherit;
+      background: white;
+      border: 1px solid rgba(0,0,0,0.07);
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+    }
+
+    .project-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 32px rgba(0,0,0,0.1);
+    }
+
+    /* Featured first card: spans 2 cols, taller */
+    .project-card:first-child {
+      grid-column: span 2;
+    }
+
+    .project-card:first-child .card-image {
+      height: 360px;
+    }
+
+    .project-card:first-child .card-overlay-title {
+      font-size: 26px;
+    }
+
+    /* Card image */
+    .card-image {
+      height: 220px;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .card-image-gradient {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to bottom, transparent 35%, rgba(0,0,0,0.55) 100%);
+      z-index: 1;
+    }
+
+    .card-logo {
+      max-width: 50%;
+      max-height: 48%;
+      object-fit: contain;
+      border-radius: 14px;
+      position: relative;
+      z-index: 0;
+      transition: transform 0.35s ease;
+    }
+
+    .project-card:hover .card-logo {
+      transform: scale(1.05);
+    }
+
+    /* Overlay info (visible in grid, hidden in list) */
+    .card-overlay-info {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      padding: 16px 20px;
+      z-index: 2;
+    }
+
+    .card-badge {
+      display: inline-block;
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: 1.2px;
+      text-transform: uppercase;
+      padding: 3px 8px;
+      border-radius: 3px;
+      background: var(--primary);
+      color: var(--black);
+      margin-bottom: 6px;
+    }
+
+    .card-overlay-title {
+      font-family: 'Syne', sans-serif;
+      font-size: 18px;
+      font-weight: 700;
+      color: #fff;
+      line-height: 1.15;
+    }
+
+    /* Card body */
+    .card-body {
+      padding: 14px 20px 16px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    /* List-only title/badge row (hidden in grid) */
+    .card-list-header {
+      display: none;
+    }
+
+    .card-desc {
       font-size: 13px;
       color: var(--gray);
-      margin-bottom: 16px;
+      flex: 1;
     }
 
-    .project-link-btn {
-      display: inline-block;
-      text-decoration: none;
-      transition: opacity 0.2s ease;
-    }
-
-    .project-link-btn:hover {
-      opacity: 0.8;
-    }
-
-    .project-link-btn.app-store img {
-      height: 36px;
+    .card-link-btn.app-store img {
+      height: 28px;
       width: auto;
       display: block;
     }
 
-    .project-link-btn.preview {
+    .card-link-btn.preview {
       display: inline-flex;
       align-items: center;
-      gap: 6px;
-      padding: 8px 14px;
-      border-radius: 6px;
-      font-size: 12px;
-      font-weight: 500;
+      gap: 5px;
+      padding: 6px 12px;
+      border-radius: 5px;
+      font-size: 11px;
+      font-weight: 600;
       background: var(--accent);
       color: #fff;
+      text-decoration: none;
     }
 
-    .project-link-btn.preview svg {
-      width: 14px;
-      height: 14px;
+    .card-link-btn.preview svg {
+      width: 12px;
+      height: 12px;
       flex-shrink: 0;
     }
 
-    /* Loading State */
+    /* ── LIST VIEW ── */
+    .projects-grid.list-view {
+      grid-template-columns: 1fr;
+      gap: 0;
+      border: 1px solid rgba(0,0,0,0.07);
+      border-radius: 10px;
+      overflow: hidden;
+    }
+
+    .projects-grid.list-view .project-card {
+      grid-column: span 1 !important;
+      border-radius: 0;
+      border: none;
+      border-bottom: 1px solid rgba(0,0,0,0.07);
+      display: flex;
+      flex-direction: row;
+    }
+
+    .projects-grid.list-view .project-card:last-child {
+      border-bottom: none;
+    }
+
+    .projects-grid.list-view .project-card:hover {
+      transform: none;
+      box-shadow: none;
+      background: var(--gray-light);
+    }
+
+    .projects-grid.list-view .card-image {
+      width: 100px;
+      height: 68px !important;
+      flex-shrink: 0;
+      border-radius: 0;
+    }
+
+    .projects-grid.list-view .card-image-gradient,
+    .projects-grid.list-view .card-overlay-info {
+      display: none;
+    }
+
+    .projects-grid.list-view .card-logo {
+      max-width: 60%;
+      max-height: 60%;
+      border-radius: 8px;
+    }
+
+    .projects-grid.list-view .card-body {
+      padding: 0 20px;
+      flex: 1;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .projects-grid.list-view .card-list-header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-shrink: 0;
+    }
+
+    .projects-grid.list-view .card-list-header .card-badge {
+      margin-bottom: 0;
+    }
+
+    .projects-grid.list-view .card-list-title {
+      font-family: 'Syne', sans-serif;
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--black);
+      white-space: nowrap;
+    }
+
+    .projects-grid.list-view .card-desc {
+      flex: 1;
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+    }
+
+    /* Loading */
     .loading {
+      grid-column: 1 / -1;
       text-align: center;
-      padding: 60px 20px;
+      padding: 80px 20px;
       color: var(--gray);
     }
 
     .loading-spinner {
-      width: 40px;
-      height: 40px;
-      border: 3px solid var(--gray-light);
+      width: 32px;
+      height: 32px;
+      border: 2px solid var(--gray-light);
       border-top-color: var(--primary);
       border-radius: 50%;
       animation: spin 0.8s linear infinite;
@@ -173,72 +352,81 @@
       to { transform: rotate(360deg); }
     }
 
-    /* Empty State */
-    .empty-state {
-      text-align: center;
-      padding: 80px 20px;
-      color: var(--gray);
-    }
-
-    .empty-state h2 {
-      font-family: 'Syne', sans-serif;
-      font-size: 24px;
-      color: var(--black);
-      margin-bottom: 12px;
-    }
-
     /* Responsive */
     @media (max-width: 900px) {
+      .projects-page {
+        padding: 100px 32px 60px;
+      }
+
       .projects-grid {
         grid-template-columns: repeat(2, 1fr);
-        gap: 20px;
       }
 
-      .page-header {
-        padding: 120px 32px 50px;
+      .project-card:first-child {
+        grid-column: span 2;
       }
 
-      .page-header h1 {
-        font-size: 36px;
-      }
-
-      .projects {
-        padding: 50px 32px 60px;
+      .project-card:first-child .card-image {
+        height: 280px;
       }
     }
 
     @media (max-width: 600px) {
-      .page-header {
-        padding: 100px 24px 40px;
-      }
-
-      .page-header h1 {
-        font-size: 28px;
-      }
-
-      .projects {
-        padding: 40px 24px 50px;
+      .projects-page {
+        padding: 80px 20px 50px;
       }
 
       .projects-grid {
         grid-template-columns: 1fr;
       }
+
+      .project-card:first-child {
+        grid-column: span 1;
+      }
+
+      .project-card:first-child .card-image {
+        height: 220px;
+      }
+
+      .project-card:first-child .card-overlay-title {
+        font-size: 18px;
+      }
     }
   </style>
 </head>
 <body>
-  <!-- Navigation -->
   <div id="nav-placeholder"></div>
 
-  <!-- Page Header -->
-  <header class="page-header">
-    <h1>All Projects</h1>
-    <p>Explore my work and experiments</p>
-  </header>
-
-  <!-- Projects Section -->
-  <section class="projects">
+  <main class="projects-page">
     <div class="projects-inner">
+      <div class="projects-header">
+        <h1>Projects &amp; Case Studies</h1>
+        <div class="controls-bar">
+          <div class="filter-tabs" id="filterTabs">
+            <button class="filter-tab active" data-filter="all">All</button>
+          </div>
+          <div class="view-toggle">
+            <button class="view-btn active" id="gridViewBtn" onclick="setView('grid')">
+              <svg width="13" height="13" viewBox="0 0 13 13" fill="currentColor">
+                <rect x="0" y="0" width="5.5" height="5.5" rx="1"/>
+                <rect x="7.5" y="0" width="5.5" height="5.5" rx="1"/>
+                <rect x="0" y="7.5" width="5.5" height="5.5" rx="1"/>
+                <rect x="7.5" y="7.5" width="5.5" height="5.5" rx="1"/>
+              </svg>
+              Grid
+            </button>
+            <button class="view-btn" id="listViewBtn" onclick="setView('list')">
+              <svg width="13" height="13" viewBox="0 0 13 13" fill="currentColor">
+                <rect x="0" y="0" width="13" height="2" rx="1"/>
+                <rect x="0" y="5.5" width="13" height="2" rx="1"/>
+                <rect x="0" y="11" width="13" height="2" rx="1"/>
+              </svg>
+              List
+            </button>
+          </div>
+        </div>
+      </div>
+
       <div class="projects-grid" id="projectsGrid">
         <div class="loading">
           <div class="loading-spinner"></div>
@@ -246,9 +434,8 @@
         </div>
       </div>
     </div>
-  </section>
+  </main>
 
-  <!-- Footer -->
   <footer class="footer">
     <span>© 2026 Janis Wang</span>
     <span>Made with taste</span>
@@ -256,18 +443,9 @@
 
   <script src="../components/nav.js"></script>
   <script>
+    let allProjects = [];
+    let currentView = 'grid';
 
-    // Color palette for project cards
-    const colorPalette = [
-      '#fbac2f', // primary
-      '#e99a1e', // primary-dark
-      '#ffc04d', // primary-light
-      '#2E9AD0', // accent
-      '#7B68EE', // purple
-      '#20B2AA', // teal
-    ];
-
-    // Load a single project's manifest
     async function loadProjectManifest(projectId) {
       const response = await fetch(`../content/projects/${projectId}/manifest.json`);
       if (!response.ok) return null;
@@ -275,84 +453,113 @@
       return { id: projectId, ...data };
     }
 
-    // Load all projects from their individual manifests
-    async function loadProjects() {
+    function buildFilterTabs(projects) {
+      const badges = [...new Set(projects.map(p => p.badge).filter(Boolean))];
+      const tabsEl = document.getElementById('filterTabs');
+      tabsEl.innerHTML = `
+        <button class="filter-tab active" data-filter="all" onclick="filterProjects('all')">All</button>
+        ${badges.map(badge => `
+          <button class="filter-tab" data-filter="${badge}" onclick="filterProjects('${badge}')">${badge}</button>
+        `).join('')}
+      `;
+    }
+
+    function filterProjects(filter) {
+      document.querySelectorAll('.filter-tab').forEach(tab => {
+        tab.classList.toggle('active', tab.dataset.filter === filter);
+      });
+      const filtered = filter === 'all' ? allProjects : allProjects.filter(p => p.badge === filter);
+      renderCards(filtered);
+    }
+
+    function setView(view) {
+      currentView = view;
+      document.getElementById('gridViewBtn').classList.toggle('active', view === 'grid');
+      document.getElementById('listViewBtn').classList.toggle('active', view === 'list');
+      document.getElementById('projectsGrid').classList.toggle('list-view', view === 'list');
+    }
+
+    function buildLinkBtn(project) {
+      if (project.appStoreUrl && project.appStoreUrl.trim()) {
+        return `<a href="${project.appStoreUrl}" class="card-link-btn app-store" target="_blank" rel="noopener noreferrer" onclick="event.stopPropagation()">
+          <img src="../assets/appstore-badge.png" alt="Available on the App Store">
+        </a>`;
+      }
+      if (project.previewUrl && project.previewUrl.trim()) {
+        return `<a href="${project.previewUrl}" class="card-link-btn preview" target="_blank" rel="noopener noreferrer" onclick="event.stopPropagation()">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+          Live Preview
+        </a>`;
+      }
+      return '';
+    }
+
+    function renderCards(projects) {
       const grid = document.getElementById('projectsGrid');
 
+      if (projects.length === 0) {
+        grid.innerHTML = `<div class="loading">No projects found.</div>`;
+        return;
+      }
+
+      const url = (id) => `project-single.html?name=${id}`;
+
+      grid.innerHTML = projects.map((project) => {
+        const color = project.color || '#fbac2f';
+        const logoPath = project.logo ? `../content/projects/${project.id}${project.logo}` : null;
+        const badge = project.badge || '';
+        const linkBtn = buildLinkBtn(project);
+
+        return `
+          <div class="project-card" role="link" tabindex="0"
+            onclick="window.location.href='${url(project.id)}'"
+            onkeydown="if(event.key==='Enter')window.location.href='${url(project.id)}'">
+            <div class="card-image" style="background: ${color};">
+              ${logoPath ? `<img src="${logoPath}" alt="${project.title}" class="card-logo">` : ''}
+              <div class="card-image-gradient"></div>
+              <div class="card-overlay-info">
+                ${badge ? `<div class="card-badge">${badge}</div>` : ''}
+                <div class="card-overlay-title">${project.title}</div>
+              </div>
+            </div>
+            <div class="card-body">
+              <div class="card-list-header">
+                ${badge ? `<span class="card-badge">${badge}</span>` : ''}
+                <span class="card-list-title">${project.title}</span>
+              </div>
+              <p class="card-desc">${project.description}</p>
+              ${linkBtn}
+            </div>
+          </div>
+        `;
+      }).join('');
+
+      if (currentView === 'list') grid.classList.add('list-view');
+      else grid.classList.remove('list-view');
+    }
+
+    async function loadProjects() {
+      const grid = document.getElementById('projectsGrid');
       try {
-        // Load global manifest to get project list
         const response = await fetch('../content/projects/manifest.json');
-        if (!response.ok) {
-          throw new Error('Failed to load projects list');
-        }
+        if (!response.ok) throw new Error('Failed to load');
         const data = await response.json();
         const projectIds = data.all || [];
 
         if (projectIds.length === 0) {
-          grid.innerHTML = `
-            <div class="empty-state" style="grid-column: 1 / -1;">
-              <h2>No Projects Yet</h2>
-              <p>Check back soon for new projects!</p>
-            </div>
-          `;
+          grid.innerHTML = `<div class="loading">No projects yet.</div>`;
           return;
         }
 
-        // Load each project's manifest
-        const projects = await Promise.all(
-          projectIds.map(id => loadProjectManifest(id))
-        );
-        const validProjects = projects.filter(p => p !== null);
-
-        // Render project cards
-        grid.innerHTML = validProjects.map((project, index) => {
-          const color = project.color || colorPalette[index % colorPalette.length];
-          const number = String(index + 1).padStart(2, '0');
-          const logoPath = project.logo ? `../content/projects/${project.id}/${project.logo}` : null;
-
-          const linkBtn = project.appStoreUrl
-            ? `<a href="${project.appStoreUrl}" class="project-link-btn app-store" target="_blank" rel="noopener noreferrer" onclick="event.stopPropagation()">
-                <img src="../assets/appstore-badge.png" alt="Available on the App Store">
-              </a>`
-            : project.previewUrl
-            ? `<a href="${project.previewUrl}" class="project-link-btn preview" target="_blank" rel="noopener noreferrer" onclick="event.stopPropagation()">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
-                Live Preview
-              </a>`
-            : '';
-
-          return `
-            <div class="project-card" role="link" tabindex="0"
-              onclick="window.location.href='project-single.html?name=${project.id}'"
-              onkeydown="if(event.key==='Enter')window.location.href='project-single.html?name=${project.id}'">
-              <div class="project-image" style="background: ${color};">
-                ${logoPath
-                  ? `<img src="${logoPath}" alt="${project.title}" class="project-logo" onerror="this.style.display='none';this.nextElementSibling.style.display='block';">
-                     <span class="project-number" style="display:none;">${number}</span>`
-                  : `<span class="project-number">${number}</span>`
-                }
-                ${project.badge ? `<span class="project-badge">${project.badge}</span>` : ''}
-              </div>
-              <div class="project-info">
-                <h3 class="project-title">${project.title}</h3>
-                <p class="project-desc">${project.description}</p>
-                ${linkBtn}
-              </div>
-            </div>
-          `;
-        }).join('');
-
+        const projects = await Promise.all(projectIds.map(id => loadProjectManifest(id)));
+        allProjects = projects.filter(p => p !== null);
+        buildFilterTabs(allProjects);
+        renderCards(allProjects);
       } catch (error) {
-        grid.innerHTML = `
-          <div class="empty-state" style="grid-column: 1 / -1;">
-            <h2>Unable to Load Projects</h2>
-            <p>Please try again later.</p>
-          </div>
-        `;
+        grid.innerHTML = `<div class="loading">Unable to load projects.</div>`;
       }
     }
 
-    // Initialize
     loadProjects();
   </script>
 </body>
