@@ -1,4 +1,4 @@
 {
-  "featured": ["seize", "pocket-cellar"],
-  "all": ["seize", "pocket-cellar"]
+  "featured": ["seize", "pocket-cellar", "fetch-highlight"],
+  "all": ["seize", "pocket-cellar", "fetch-highlight"]
 }
