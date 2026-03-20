@@ -3,7 +3,7 @@
   const path = window.location.pathname.split('/').pop() || 'index.html';
 
   const isActive = {
-    about: path === 'about-me.html',
+    experiences: path === 'experiences.html',
     projects: path === 'projects.html' || path === 'project-single.html',
   };
 
@@ -16,7 +16,7 @@
         <span></span>
       </div>
       <div class="nav-links">
-        <a href="about-me.html" class="nav-link${isActive.about ? ' active' : ''}">About</a>
+        <a href="experiences.html" class="nav-link${isActive.experiences ? ' active' : ''}">Experiences</a>
         <a href="projects.html" class="nav-link${isActive.projects ? ' active' : ''}">Projects</a>
         <a href="index.html#contact" class="nav-link btn">Contact</a>
       </div>

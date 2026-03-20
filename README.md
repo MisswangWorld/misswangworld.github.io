@@ -7,7 +7,7 @@ A modern, responsive portfolio website. Static site — no build step, no framew
 | Page | File | Description |
 |------|------|-------------|
 | Home | `pages/index.html` | Hero, about, featured projects, contact |
-| About Me | `pages/about-me.html` | Snake timeline of work & education with floating sidebar nav |
+| Experiences | `pages/experiences.html` | Snake timeline of work & education with floating sidebar nav |
 | All Projects | `pages/projects.html` | Grid view of all projects |
 | Project Details | `pages/project-single.html` | Individual project page with version sidebar and Markdown content |
 
@@ -38,7 +38,7 @@ Static site — deploy to any static host (GitHub Pages, Netlify, Vercel, Cloudf
 ├── index.html                        # Root redirect → pages/index.html
 ├── pages/
 │   ├── index.html                    # Homepage
-│   ├── about-me.html                 # About Me — snake timeline
+│   ├── experiences.html              # Experiences — snake timeline
 │   ├── projects.html                 # All projects grid
 │   └── project-single.html          # Project detail template
 ├── components/
@@ -47,7 +47,7 @@ Static site — deploy to any static host (GitHub Pages, Netlify, Vercel, Cloudf
 │   └── avatar.jpg                    # Profile photo
 ├── content/
 │   ├── social.json                   # Social links
-│   ├── timeline.json                 # About Me timeline entries
+│   ├── timeline.json                 # Experiences timeline entries
 │   └── projects/
 │       ├── manifest.json             # Global project list
 │       ├── README-projects.md        # Project system documentation
@@ -114,7 +114,7 @@ Add to `featured` to show on the homepage. Always add to `all`.
 
 For detailed docs see [content/projects/README-projects.md](content/projects/README-projects.md).
 
-## Updating the About Me Timeline
+## Updating the Experiences Timeline
 
 Edit `content/timeline.json`. Each entry:
 
