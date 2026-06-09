@@ -6,6 +6,16 @@
   "badge": "IOS APP",
   "color": "#FF6B4A",
   "appStoreUrl": "https://apps.apple.com/us/app/seize-every-focused-moment/id6758697345",
+  "previews": [
+    {
+      "image": "screenshots/main.jpg",
+      "description": "The main screen of the app, featuring a clean and minimalist design. User can choose between a stopwatch timer and a countdown timer."
+    },
+    {
+      "image": "screenshots/save.jpg",
+      "description": "User can save their focus sessions with a custom name and view their session history later in calendar."
+    }
+  ],
   "versions": ["v1"],
   "latest": "v1"
 }
