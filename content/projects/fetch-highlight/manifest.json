@@ -2,11 +2,16 @@
   "title": "Fetch TV Highlighted Projects",
   "description": "A demo project showcasing the template system",
   "logo": "/logo.jpg",
-  "badge": "Fetch TV",
+  "badges": [
+    {
+      "label": "Fetch TV",
+      "color": "#0677B1",
+      "textColor": "#FFFFFF"
+    }
+  ],
   "color": "#0677B1",
   "appStoreUrl": "",
   "previewUrl": "",
   "versions": ["svod-catchup-wrapper-lightning", "thumbnail-scrubbing"],
   "latest": "thumbnail-scrubbing"
 }
-

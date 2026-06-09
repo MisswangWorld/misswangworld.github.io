@@ -1,0 +1,57 @@
+{
+  "title": "SoroSoro | It's about time",
+  "description": "No pressure, no anxiety, just a clear view of the promises you've made to yourself.",
+  "logo": "/logo.png",
+  "sidebarLogo": "/sidebar-logo.png",
+  "badges": [
+    {
+      "label": "IOS APP",
+      "color": "#FBAC2F"
+    },
+    {
+      "label": "UNDER REVIEW",
+      "color": "#D89A2B"
+    }
+  ],
+  "color": "#F5F0E8",
+  "previews": [
+    {
+      "image": "screenshots/deadlines.png",
+      "description": "DDL items preview, with cyber theme."
+    },
+    {
+      "image": "screenshots/deadline-setup.png",
+      "description": "DDL setup screen, user can set up the DDL with a name, a due date and time, and an optional reminder."
+    },
+    {
+      "image": "screenshots/recurring-details.png",
+      "description": "A screen showing the details of a recurring DDL. User can edit the DDL's name, due date and time, and reminder settings. User can also choose to skip the next occurrence or delete the entire recurring DDL series."
+    },
+    {
+      "image": "screenshots/recurring-setup.png",
+      "description": "A screen for setting up a recurring DDL. User can specify the frequency and other details for the recurring task."
+    },
+    {
+      "image": "screenshots/track-setup.png",
+      "description": "A screen for setting up a track. User can specify the name and details of the track, and add DDLs to the track."
+    },
+    {
+      "image": "screenshots/settings.png",
+      "description": "A screen for managing app settings, including language preferences, themes, and notification settings."
+    },
+    {
+      "image": "screenshots/wabi.png",
+      "description": "A preview for the wabi-sabi theme, featuring a simple and elegant design with a touch of imperfection."
+    },
+    {
+      "image": "screenshots/tag-setting.png",
+      "description": "A screen for managing tags. User can create and edit tags, and assign them to DDLs for better organization."
+    },
+    {
+      "image": "screenshots/press.png",
+      "description": "A preview for the press theme, featuring a clean and modern design."
+    }
+  ],
+  "versions": ["v1"],
+  "latest": "v1"
+}

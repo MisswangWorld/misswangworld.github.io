@@ -3,7 +3,12 @@
   "description": "A minimalist focus timer.",
   "logo": "/logo.png",
   "sidebarLogo": "/sidebar-logo.png",
-  "badge": "IOS APP",
+  "badges": [
+    {
+      "label": "IOS APP",
+      "color": "#FBAC2F"
+    }
+  ],
   "color": "#FF6B4A",
   "appStoreUrl": "https://apps.apple.com/us/app/seize-every-focused-moment/id6758697345",
   "previews": [

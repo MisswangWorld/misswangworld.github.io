@@ -188,8 +188,16 @@
       z-index: 2;
     }
 
+    .card-badges {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+      margin-bottom: 6px;
+    }
+
     .card-badge {
-      display: inline-block;
+      display: inline-flex;
+      align-items: center;
       font-size: 9px;
       font-weight: 700;
       letter-spacing: 1.2px;
@@ -198,7 +206,6 @@
       border-radius: 3px;
       background: var(--primary);
       color: var(--black);
-      margin-bottom: 6px;
     }
 
     .card-overlay-title {
@@ -314,7 +321,7 @@
       flex-shrink: 0;
     }
 
-    .projects-grid.list-view .card-list-header .card-badge {
+    .projects-grid.list-view .card-list-header .card-badges {
       margin-bottom: 0;
     }
 
@@ -456,13 +463,57 @@
       return { id: projectId, ...data };
     }
 
+    function getProjectBadges(project) {
+      const rawBadges = Array.isArray(project.badges)
+        ? project.badges
+        : (project.badge ? [project.badge] : []);
+
+      return rawBadges
+        .map((badge) => {
+          if (typeof badge === 'string') {
+            return { label: badge, color: project.badgeColor || project.color || '#fbac2f' };
+          }
+          return {
+            label: badge.label || badge.text || badge.name || '',
+            color: badge.color || project.badgeColor || project.color || '#fbac2f',
+            textColor: badge.textColor || badge.text_color || ''
+          };
+        })
+        .filter((badge) => badge.label);
+    }
+
+    function escapeHtml(value) {
+      return String(value)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#039;');
+    }
+
+    function escapeJsStringAttribute(value) {
+      return JSON.stringify(String(value)).replace(/"/g, '&quot;');
+    }
+
+    function renderBadgeList(project) {
+      const badges = getProjectBadges(project);
+      if (badges.length === 0) return '';
+
+      return `<div class="card-badges">
+        ${badges.map((badge) => {
+          const textColor = badge.textColor || '#1a1a1a';
+          return `<span class="card-badge" style="background: ${escapeHtml(badge.color)}; color: ${escapeHtml(textColor)};">${escapeHtml(badge.label)}</span>`;
+        }).join('')}
+      </div>`;
+    }
+
     function buildFilterTabs(projects) {
-      const badges = [...new Set(projects.map(p => p.badge).filter(Boolean))];
+      const badges = [...new Set(projects.flatMap(project => getProjectBadges(project).map(badge => badge.label)))];
       const tabsEl = document.getElementById('filterTabs');
       tabsEl.innerHTML = `
         <button class="filter-tab active" data-filter="all" onclick="filterProjects('all')">All</button>
         ${badges.map(badge => `
-          <button class="filter-tab" data-filter="${badge}" onclick="filterProjects('${badge}')">${badge}</button>
+          <button class="filter-tab" data-filter="${escapeHtml(badge)}" onclick="filterProjects(${escapeJsStringAttribute(badge)})">${escapeHtml(badge)}</button>
         `).join('')}
       `;
     }
@@ -471,7 +522,9 @@
       document.querySelectorAll('.filter-tab').forEach(tab => {
         tab.classList.toggle('active', tab.dataset.filter === filter);
       });
-      const filtered = filter === 'all' ? allProjects : allProjects.filter(p => p.badge === filter);
+      const filtered = filter === 'all'
+        ? allProjects
+        : allProjects.filter(project => getProjectBadges(project).some(badge => badge.label === filter));
       renderCards(filtered);
     }
 
@@ -510,7 +563,7 @@
       grid.innerHTML = projects.map((project) => {
         const color = project.color || '#fbac2f';
         const logoPath = project.logo ? `../content/projects/${project.id}${project.logo}` : null;
-        const badge = project.badge || '';
+        const badges = renderBadgeList(project);
         const linkBtn = buildLinkBtn(project);
 
         return `
@@ -521,13 +574,13 @@
               ${logoPath ? `<img src="${logoPath}" alt="${project.title}" class="card-logo">` : ''}
               <div class="card-image-gradient"></div>
               <div class="card-overlay-info">
-                ${badge ? `<div class="card-badge">${badge}</div>` : ''}
+                ${badges}
                 <div class="card-overlay-title">${project.title}</div>
               </div>
             </div>
             <div class="card-body">
               <div class="card-list-header">
-                ${badge ? `<span class="card-badge">${badge}</span>` : ''}
+                ${badges}
                 <span class="card-list-title">${project.title}</span>
               </div>
               <p class="card-desc">${project.description}</p>

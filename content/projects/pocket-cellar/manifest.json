@@ -3,7 +3,12 @@
   "description": "Your Personal Wine Cellar Manager.",
   "logo": "/logo.png",
   "sidebarLogo": "/sidebar-logo.png",
-  "badge": "IOS APP",
+  "badges": [
+    {
+      "label": "IOS APP",
+      "color": "#FBAC2F"
+    }
+  ],
   "color": "#722F37",
   "appStoreUrl": "https://apps.apple.com/us/app/pocket-cellar/id6759514583",
   "previews": [

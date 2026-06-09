@@ -120,7 +120,16 @@ Each project folder must have a `manifest.json` file with project info.
   "description": "A brief description of the project",
   "logo": "logo.png",
   "sidebarLogo": "sidebar-logo.png",
-  "badge": "NEW",
+  "badges": [
+    {
+      "label": "IOS APP",
+      "color": "#FBAC2F"
+    },
+    {
+      "label": "IN PROGRESS",
+      "color": "#D89A2B"
+    }
+  ],
   "color": "#fbac2f",
   "previews": [
     {
@@ -145,7 +154,7 @@ Each project folder must have a `manifest.json` file with project info.
 | `description` | string | Yes | Brief description (1-2 sentences) for project cards |
 | `logo` | string | No | Logo filename (e.g., `"logo.png"`) — used on project cards and as the sidebar fallback |
 | `sidebarLogo` | string | No | Alternate logo for the project page sidebar (e.g., `"sidebar-logo.png"`). Falls back to `logo` if omitted. Useful when the card logo is landscape/wide and a compact icon suits the sidebar better. |
-| `badge` | string | No | Badge text (e.g., `"NEW"`, `"IOS APP"`, `"DEMO"`) |
+| `badges` | array | No | Badge list for project cards and project filters. Each item should include a `label` and can include a custom `color` plus optional `textColor`. Use this instead of the old single `badge` string. |
 | `color` | string | No | Background color for card (hex format, defaults to primary yellow) |
 | `previews` | array | No | Preview screenshots for the project page carousel. Each item should include an `image` path relative to the current project folder and an optional `description`. The project page also accepts `src` or `url` instead of `image`, and `caption` instead of `description`. Legacy `examples` entries are still supported. |
 | `versions` | array | Yes | List of available versions in chronological order (oldest first) |

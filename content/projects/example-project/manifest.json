@@ -2,7 +2,12 @@
   "title": "Example Project",
   "description": "A demo project showcasing the template system",
   "logo": "logo.png",
-  "badge": "DEMO",
+  "badges": [
+    {
+      "label": "DEMO",
+      "color": "#FBAC2F"
+    }
+  ],
   "color": "#fbac2f",
   "appStoreUrl": "",
   "previewUrl": "",
