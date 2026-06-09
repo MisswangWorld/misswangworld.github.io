@@ -79,6 +79,14 @@
       list-style: none;
     }
 
+    .sidebar-gallery {
+      margin-bottom: 24px;
+    }
+
+    .sidebar-gallery[hidden] {
+      display: none;
+    }
+
     .version-item {
       margin-bottom: 8px;
     }
@@ -124,6 +132,42 @@
     .version-btn.active .version-tag {
       color: var(--black);
       opacity: 0.7;
+    }
+
+    .gallery-btn {
+      display: block;
+      width: 100%;
+      padding: 12px 16px;
+      background: transparent;
+      border: none;
+      border-radius: 8px;
+      font-family: 'Syne', sans-serif;
+      font-size: 15px;
+      font-weight: 500;
+      color: var(--gray-dark);
+      cursor: pointer;
+      text-align: left;
+      transition: all 0.2s ease;
+    }
+
+    .gallery-btn:hover {
+      background: rgba(46, 154, 208, 0.1);
+      color: var(--black);
+    }
+
+    .gallery-btn.active {
+      background: var(--accent);
+      color: var(--white);
+      font-weight: 600;
+    }
+
+    .gallery-btn .gallery-count {
+      display: block;
+      font-size: 10px;
+      color: inherit;
+      font-weight: 400;
+      margin-top: 2px;
+      opacity: 0.78;
     }
 
     .sidebar-link-btn {
@@ -351,6 +395,184 @@
       background: var(--gray-light);
     }
 
+    /* Preview screenshot carousel */
+    .example-gallery h1 {
+      font-family: 'Syne', sans-serif;
+      font-size: 36px;
+      font-weight: 700;
+      color: var(--black);
+      margin-bottom: 12px;
+      line-height: 1.2;
+    }
+
+    .example-gallery-intro {
+      font-size: 15px;
+      color: var(--gray-dark);
+      line-height: 1.8;
+      margin-bottom: 24px;
+    }
+
+    .example-carousel {
+      display: grid;
+      grid-template-columns: 44px minmax(0, 1fr) 44px;
+      gap: 16px;
+      align-items: center;
+    }
+
+    .carousel-control {
+      width: 44px;
+      height: 44px;
+      border: 1.5px solid var(--black);
+      border-radius: 8px;
+      background: transparent;
+      color: var(--black);
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.2s ease;
+    }
+
+    .carousel-control:hover:not(:disabled) {
+      background: var(--black);
+      color: var(--white);
+    }
+
+    .carousel-control:disabled {
+      opacity: 0.35;
+      cursor: default;
+    }
+
+    .carousel-control svg {
+      width: 20px;
+      height: 20px;
+    }
+
+    .carousel-stage {
+      min-width: 0;
+    }
+
+    .carousel-image-btn {
+      width: 100%;
+      padding: 0;
+      border: none;
+      border-radius: 8px;
+      background: transparent;
+      cursor: zoom-in;
+      overflow: hidden;
+      display: block;
+      box-shadow: 0 18px 48px rgba(0,0,0,0.08);
+    }
+
+    .carousel-image-btn img {
+      width: 100%;
+      max-height: 560px;
+      object-fit: contain;
+      display: block;
+      background: var(--gray-light);
+    }
+
+    .carousel-caption {
+      margin-top: 16px;
+      color: var(--gray-dark);
+      font-size: 15px;
+      line-height: 1.7;
+    }
+
+    .carousel-meta {
+      margin-top: 8px;
+      color: var(--gray);
+      font-size: 12px;
+      font-family: 'Inter', sans-serif;
+    }
+
+    .carousel-dots {
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+      margin-top: 20px;
+      flex-wrap: wrap;
+    }
+
+    .carousel-dot {
+      width: 10px;
+      height: 10px;
+      border: none;
+      border-radius: 50%;
+      background: #d8d8d8;
+      cursor: pointer;
+      padding: 0;
+    }
+
+    .carousel-dot.active {
+      background: var(--primary);
+    }
+
+    .image-lightbox {
+      position: fixed;
+      inset: 0;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 32px;
+      background: rgba(0,0,0,0.78);
+      z-index: 1000;
+    }
+
+    .image-lightbox.open {
+      display: flex;
+    }
+
+    .lightbox-content {
+      max-width: min(1100px, 100%);
+      max-height: 92vh;
+      color: var(--white);
+    }
+
+    .lightbox-content img {
+      max-width: 100%;
+      max-height: 78vh;
+      object-fit: contain;
+      display: block;
+      margin: 0 auto;
+      border-radius: 8px;
+      background: var(--gray-light);
+    }
+
+    .lightbox-caption {
+      max-width: 760px;
+      margin: 16px auto 0;
+      font-size: 14px;
+      line-height: 1.6;
+      color: rgba(255,255,255,0.88);
+      text-align: center;
+    }
+
+    .lightbox-close {
+      position: fixed;
+      top: 24px;
+      right: 24px;
+      width: 44px;
+      height: 44px;
+      border: none;
+      border-radius: 8px;
+      background: rgba(255,255,255,0.12);
+      color: var(--white);
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .lightbox-close:hover {
+      background: rgba(255,255,255,0.22);
+    }
+
+    .lightbox-close svg {
+      width: 22px;
+      height: 22px;
+    }
+
     /* Loading & Error States */
     .loading {
       text-align: center;
@@ -418,7 +640,8 @@
       }
 
       /* Larger touch targets for version buttons */
-      .version-btn {
+      .version-btn,
+      .gallery-btn {
         padding: 14px 16px;
         font-size: 16px;
       }
@@ -473,6 +696,33 @@
         font-size: 24px;
         line-height: 1.3;
         word-wrap: break-word;
+      }
+
+      .example-gallery h1 {
+        font-size: 24px;
+        line-height: 1.3;
+      }
+
+      .example-carousel {
+        grid-template-columns: 1fr;
+        gap: 12px;
+      }
+
+      .carousel-control {
+        display: none;
+      }
+
+      .carousel-image-btn img {
+        max-height: 480px;
+      }
+
+      .image-lightbox {
+        padding: 16px;
+      }
+
+      .lightbox-close {
+        top: 16px;
+        right: 16px;
       }
 
       .markdown-content h2 {
@@ -563,6 +813,10 @@
         font-size: 22px;
       }
 
+      .example-gallery h1 {
+        font-size: 22px;
+      }
+
       .markdown-content h2 {
         font-size: 17px;
       }
@@ -597,6 +851,13 @@
         <div id="sidebarLinkContainer"></div>
         <div class="project-name" id="projectName">Loading...</div>
       </div>
+      <div class="sidebar-gallery" id="sidebarGallery" hidden>
+        <div class="sidebar-title">Previews</div>
+        <button class="gallery-btn" id="galleryBtn" type="button" onclick="loadPreviews()">
+          <span>Screenshots</span>
+          <span class="gallery-count" id="galleryCount"></span>
+        </button>
+      </div>
       <div class="sidebar-title">Versions</div>
       <ul class="version-list" id="versionList">
         <!-- Versions will be populated by JavaScript -->
@@ -622,6 +883,16 @@
     </main>
   </div>
 
+  <div class="image-lightbox" id="imageLightbox" role="dialog" aria-modal="true" aria-label="Expanded image" onclick="handleLightboxBackdrop(event)">
+    <button class="lightbox-close" type="button" onclick="closeLightbox()" aria-label="Close expanded image">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"/></svg>
+    </button>
+    <div class="lightbox-content">
+      <img id="lightboxImage" src="" alt="">
+      <p class="lightbox-caption" id="lightboxCaption"></p>
+    </div>
+  </div>
+
   <!-- Footer -->
   <footer class="footer">
     <span>© 2026 Janis Wang</span>
@@ -636,6 +907,8 @@
 
     let manifest = null;
     let currentVersion = null;
+    let currentView = null;
+    let currentPreviewIndex = 0;
 
     // Toggle sidebar (mobile)
     function toggleSidebar() {
@@ -676,19 +949,50 @@
         // Populate sidebar link button
         populateSidebarLink();
 
+        // Populate preview screenshot link
+        populatePreviewGalleryLink();
+
         // Populate version list
         populateVersionList();
 
-        // Load the latest version by default, or from URL hash
-        const hashVersion = window.location.hash.replace('#', '');
-        const versionToLoad = hashVersion && manifest.versions.includes(hashVersion)
-          ? hashVersion
-          : manifest.latest || manifest.versions[manifest.versions.length - 1];
-
-        loadVersion(versionToLoad);
+        // Load the requested hash view, or the latest version by default
+        loadViewFromHash();
 
       } catch (error) {
         showError('Project Not Found', `Could not find project "${projectName}". Please check the project name and try again.`);
+      }
+    }
+
+    function getPreviews() {
+      if (!manifest) return [];
+      const previews = manifest.previews || manifest.examples || manifest.gallery || manifest.exampleImages || [];
+      return previews
+        .map(preview => {
+          if (typeof preview === 'string') {
+            return { image: preview, description: '' };
+          }
+          return {
+            image: preview.image || preview.src || preview.url || '',
+            description: preview.description || preview.caption || preview.alt || '',
+            title: preview.title || ''
+          };
+        })
+        .filter(preview => preview.image);
+    }
+
+    function resolveProjectAssetPath(path) {
+      if (!path) return '';
+      if (/^(https?:)?\/\//.test(path) || path.startsWith('data:')) {
+        return path;
+      }
+      return `../content/projects/${projectName}/${path.replace(/^\//, '')}`;
+    }
+
+    function closeSidebarOnMobile() {
+      if (window.innerWidth <= 900) {
+        document.querySelector('.sidebar').classList.remove('open');
+        document.querySelector('.sidebar-toggle').classList.remove('open');
+        document.querySelector('.sidebar-overlay').classList.remove('open');
       }
     }
 
@@ -709,6 +1013,20 @@
           </a>
         `;
       }
+    }
+
+    function populatePreviewGalleryLink() {
+      const previews = getPreviews();
+      const sidebarGallery = document.getElementById('sidebarGallery');
+      const galleryCount = document.getElementById('galleryCount');
+
+      if (previews.length === 0) {
+        sidebarGallery.hidden = true;
+        return;
+      }
+
+      sidebarGallery.hidden = false;
+      galleryCount.textContent = `${previews.length} screenshot${previews.length === 1 ? '' : 's'}`;
     }
 
     // Populate version buttons in sidebar
@@ -748,11 +1066,13 @@
     // Load a specific version's markdown content
     async function loadVersion(version) {
       currentVersion = version;
+      currentView = 'version';
 
       // Update URL hash
       window.location.hash = version;
 
       // Update active button state
+      document.getElementById('galleryBtn')?.classList.remove('active');
       document.querySelectorAll('.version-btn').forEach(btn => {
         btn.classList.remove('active');
         if (btn.querySelector('.version-label').textContent === version) {
@@ -770,11 +1090,7 @@
       `;
 
       // Close sidebar on mobile after selection
-      if (window.innerWidth <= 900) {
-        document.querySelector('.sidebar').classList.remove('open');
-        document.querySelector('.sidebar-toggle').classList.remove('open');
-        document.querySelector('.sidebar-overlay').classList.remove('open');
-      }
+      closeSidebarOnMobile();
 
       try {
         const response = await fetch(`../content/projects/${projectName}/${version}.md`);
@@ -799,6 +1115,128 @@
       }
     }
 
+    function loadPreviews(index = 0) {
+      const previews = getPreviews();
+      if (previews.length === 0) {
+        return;
+      }
+
+      currentVersion = null;
+      currentView = 'previews';
+      currentPreviewIndex = Math.max(0, Math.min(index, previews.length - 1));
+      window.location.hash = 'previews';
+
+      document.querySelectorAll('.version-btn').forEach(btn => btn.classList.remove('active'));
+      document.getElementById('galleryBtn')?.classList.add('active');
+      closeSidebarOnMobile();
+      renderPreviews();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function renderPreviews() {
+      const previews = getPreviews();
+      const current = previews[currentPreviewIndex];
+      const contentDiv = document.getElementById('markdownContent');
+      const imageSrc = resolveProjectAssetPath(current.image);
+      const imageAlt = current.description || current.title || `${manifest.title} screenshot ${currentPreviewIndex + 1}`;
+      const hasMultiple = previews.length > 1;
+
+      contentDiv.innerHTML = `
+        <section class="example-gallery">
+          <h1>${escapeHtml(manifest.title)} - Screenshots</h1>
+          <p class="example-gallery-intro">${escapeHtml(manifest.description || 'Project screenshots and visual previews.')}</p>
+          <div class="example-carousel">
+            <button class="carousel-control" type="button" onclick="showPreviousPreview()" aria-label="Previous screenshot" ${hasMultiple ? '' : 'disabled'}>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 18l-6-6 6-6"/></svg>
+            </button>
+            <div class="carousel-stage">
+              <button class="carousel-image-btn" type="button" onclick="openLightbox(${currentPreviewIndex})" aria-label="Expand screenshot">
+                <img src="${escapeHtml(imageSrc)}" alt="${escapeHtml(imageAlt)}">
+              </button>
+              ${current.description ? `<p class="carousel-caption">${escapeHtml(current.description)}</p>` : ''}
+              <p class="carousel-meta">${currentPreviewIndex + 1} / ${previews.length}</p>
+            </div>
+            <button class="carousel-control" type="button" onclick="showNextPreview()" aria-label="Next screenshot" ${hasMultiple ? '' : 'disabled'}>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg>
+            </button>
+          </div>
+          ${hasMultiple ? `
+            <div class="carousel-dots" aria-label="Choose screenshot">
+              ${previews.map((_, index) => `
+                <button class="carousel-dot ${index === currentPreviewIndex ? 'active' : ''}" type="button" onclick="showPreview(${index})" aria-label="Show screenshot ${index + 1}"></button>
+              `).join('')}
+            </div>
+          ` : ''}
+        </section>
+      `;
+    }
+
+    function showPreview(index) {
+      currentPreviewIndex = index;
+      renderPreviews();
+    }
+
+    function showPreviousPreview() {
+      const previews = getPreviews();
+      currentPreviewIndex = (currentPreviewIndex - 1 + previews.length) % previews.length;
+      renderPreviews();
+    }
+
+    function showNextPreview() {
+      const previews = getPreviews();
+      currentPreviewIndex = (currentPreviewIndex + 1) % previews.length;
+      renderPreviews();
+    }
+
+    function openLightbox(index) {
+      const previews = getPreviews();
+      const preview = previews[index];
+      const imageSrc = resolveProjectAssetPath(preview.image);
+      const imageAlt = preview.description || preview.title || `${manifest.title} screenshot ${index + 1}`;
+
+      document.getElementById('lightboxImage').src = imageSrc;
+      document.getElementById('lightboxImage').alt = imageAlt;
+      document.getElementById('lightboxCaption').textContent = preview.description || '';
+      document.getElementById('imageLightbox').classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeLightbox() {
+      document.getElementById('imageLightbox').classList.remove('open');
+      document.body.style.overflow = '';
+    }
+
+    function handleLightboxBackdrop(event) {
+      if (event.target.id === 'imageLightbox') {
+        closeLightbox();
+      }
+    }
+
+    function escapeHtml(value) {
+      return String(value)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#039;');
+    }
+
+    function loadViewFromHash() {
+      const hashValue = window.location.hash.replace('#', '');
+      const previews = getPreviews();
+
+      if ((hashValue === 'previews' || hashValue === 'examples') && previews.length > 0) {
+        loadPreviews(currentPreviewIndex);
+        return;
+      }
+
+      const versionToLoad = hashValue && manifest.versions.includes(hashValue)
+        ? hashValue
+        : manifest.latest || manifest.versions[manifest.versions.length - 1];
+
+      loadVersion(versionToLoad);
+    }
+
     // Show error message
     function showError(title, message) {
       document.getElementById('projectName').textContent = 'Error';
@@ -816,9 +1254,30 @@
 
     // Handle browser back/forward
     window.addEventListener('hashchange', () => {
-      const version = window.location.hash.replace('#', '');
-      if (version && manifest && manifest.versions.includes(version) && version !== currentVersion) {
-        loadVersion(version);
+      const hashValue = window.location.hash.replace('#', '');
+      if (!manifest) return;
+
+      if ((hashValue === 'previews' || hashValue === 'examples') && currentView !== 'previews') {
+        loadPreviews(currentPreviewIndex);
+      } else if (hashValue && manifest.versions.includes(hashValue) && hashValue !== currentVersion) {
+        loadVersion(hashValue);
+      } else if (!hashValue) {
+        loadViewFromHash();
+      }
+    });
+
+    window.addEventListener('keydown', (event) => {
+      const lightboxOpen = document.getElementById('imageLightbox').classList.contains('open');
+      if (event.key === 'Escape' && lightboxOpen) {
+        closeLightbox();
+      }
+
+      if (currentView === 'previews' && !lightboxOpen) {
+        if (event.key === 'ArrowLeft') {
+          showPreviousPreview();
+        } else if (event.key === 'ArrowRight') {
+          showNextPreview();
+        }
       }
     });
 

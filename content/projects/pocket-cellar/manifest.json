@@ -6,6 +6,40 @@
   "badge": "IOS APP",
   "color": "#722F37",
   "appStoreUrl": "https://apps.apple.com/us/app/pocket-cellar/id6759514583",
+  "previews": [
+    {
+      "image": "screenshots/welcome.jpg",
+      "description": "A welcome page with product logo. Background color matches the theme."
+    },
+    {
+      "image": "screenshots/create-cellar.jpg",
+      "description": "A screen for creating a new wine cellar."
+    },
+    {
+      "image": "screenshots/my-cellar.jpg",
+      "description": "A screen displaying the user's wine cellar. This view is mimicking the wine rack, user can see the wine bottles and their details at a glance. User can also add new wines to the cellar from this screen just by tapping the empty space."
+    },
+    {
+      "image": "screenshots/preview.jpg",
+      "description": "A preview screen showing a wine's details, including name, vintage, and purchase information."
+    },
+    {
+      "image": "screenshots/list-view.jpg",
+      "description": "A screen displaying a list of wines in the cellar. User can sort and filter wines based on different criteria such as vintage, grape variety, and region."
+    },
+    {
+      "image": "screenshots/details.jpg",
+      "description": "A screen showing detailed information about a specific wine."
+    },
+    {
+      "image": "screenshots/archive.jpg",
+      "description": "A screen for archived wines. User can restore archived wines back to the cellar or permanently delete them."
+    },
+    {
+      "image": "screenshots/settings.jpg",
+      "description": "A screen for managing app settings, including language preferences, themes, and default currency. User can also manage wine details such as grape varieties and regions."
+    }
+  ],
   "versions": ["v1", "v1.2"],
   "latest": "v1.2"
 }

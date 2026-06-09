@@ -6,6 +6,20 @@
   "color": "#fbac2f",
   "appStoreUrl": "",
   "previewUrl": "",
+  "previews": [
+    {
+      "image": "screenshots/overview.svg",
+      "description": "Overview screen showing a project summary, status cards, and primary actions."
+    },
+    {
+      "image": "screenshots/detail.svg",
+      "description": "Detail screen with structured content sections and supporting metadata."
+    },
+    {
+      "image": "screenshots/analytics.svg",
+      "description": "Analytics screen showing progress, trend lines, and comparison metrics."
+    }
+  ],
   "versions": ["v1", "v2", "v3"],
   "latest": "v3"
 }

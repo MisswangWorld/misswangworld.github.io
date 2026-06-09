@@ -21,6 +21,9 @@ This document explains how to add and manage projects on your portfolio website.
     manifest.json         # Project info (title, description, logo, versions)
     logo.png              # Optional: Project logo (card + sidebar fallback)
     sidebar-logo.png      # Optional: Alternate logo for the project page sidebar
+    screenshots/          # Optional: Preview screenshots for the project carousel
+      home.png
+      detail.png
     v1.md                 # Required: First version content
     v2.md                 # Optional: Second version
     v3.md                 # Optional: Third version
@@ -119,6 +122,16 @@ Each project folder must have a `manifest.json` file with project info.
   "sidebarLogo": "sidebar-logo.png",
   "badge": "NEW",
   "color": "#fbac2f",
+  "previews": [
+    {
+      "image": "screenshots/home.png",
+      "description": "Home screen showing the primary project flow."
+    },
+    {
+      "image": "screenshots/detail.png",
+      "description": "Detail screen with project-specific controls."
+    }
+  ],
   "versions": ["v1", "v2", "v3"],
   "latest": "v3"
 }
@@ -134,6 +147,7 @@ Each project folder must have a `manifest.json` file with project info.
 | `sidebarLogo` | string | No | Alternate logo for the project page sidebar (e.g., `"sidebar-logo.png"`). Falls back to `logo` if omitted. Useful when the card logo is landscape/wide and a compact icon suits the sidebar better. |
 | `badge` | string | No | Badge text (e.g., `"NEW"`, `"IOS APP"`, `"DEMO"`) |
 | `color` | string | No | Background color for card (hex format, defaults to primary yellow) |
+| `previews` | array | No | Preview screenshots for the project page carousel. Each item should include an `image` path relative to the current project folder and an optional `description`. The project page also accepts `src` or `url` instead of `image`, and `caption` instead of `description`. Legacy `examples` entries are still supported. |
 | `versions` | array | Yes | List of available versions in chronological order (oldest first) |
 | `latest` | string | No | The version to highlight as "latest" (defaults to last in array) |
 
